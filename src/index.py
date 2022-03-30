@@ -1,7 +1,9 @@
 from ui.ui import UI
+from services.vocabulary_service import Tiedostonlukija
 
 def main():
-    kayttoliittyma = UI()
+    sanasto_palvelu = Tiedostonlukija()
+    kayttoliittyma = UI(sanasto_palvelu)
     kayttoliittyma.kaynnista()
 
 
