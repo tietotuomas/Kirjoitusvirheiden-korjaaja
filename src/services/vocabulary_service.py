@@ -11,12 +11,12 @@ class Sanastopalvelu:
 
     def lue_sanasto(self):
         kansio = os.path.dirname(__file__)
-        engl_sanasto = os.path.join(kansio, "..\\vocabulary\words.txt")
+        engl_sanasto = os.path.join(kansio, "..\\vocabulary\\words.txt")
 
-        with open(engl_sanasto) as sanasto:
+        with open(engl_sanasto, encoding="utf8") as sanasto:
             # laskuri = 0
             for sana in sanasto:
-                sana = sana.lower().replace("\n", "")                
+                sana = sana.lower().replace("\n", "")
                 if not self.trie.onko_sana_olemassa(sana):
                     self.trie.lisaa_sana(sana)
                 # laskuri += 1
@@ -24,7 +24,7 @@ class Sanastopalvelu:
                 #     break
         # print(sana)
         # print(self.trie.juuri["a"]["a"]["l"]["t"])
-    
+
     def tarkista_teksti(self, teksti: str):
         sanalista = teksti.lower().split()
         virheeton = True
@@ -36,9 +36,7 @@ class Sanastopalvelu:
             indeksi += 1
         if virheeton:
             return ""
-        else:
-            if len(sanalista) > 1:
-                sanalista[0] = sanalista[0].capitalize()
-            return " ".join(sanalista)
-
-
+        if len(sanalista) > 1:
+            sanalista[0] = sanalista[0].capitalize()
+        return " ".join(sanalista)
+        
