@@ -15,7 +15,7 @@ class UI:
     }
 
     EI_VIRHEITA_TEKSTI = "Sovellus ei löytänyt tekstistä virheitä\n"
-    KORJATTU_MJONO_TEKSTI = "Korjausehdotus: \n"
+    KORJATTU_MJONO_TEKSTI = "Tähdellä merkatut sanat vaikuttavat virheelliseltä. Tarkoititko: \n"
     VIRHEELLINEN_TEKSTI = "Virheellinen komento"
     LOPETUS_TEKSTI = "Sovellus sulkeutuu"
 
@@ -39,6 +39,13 @@ class UI:
 
     def _lue_sana(self):
         sana = input(self.KOMENNOT["1"])
-        print(f"{self.EI_VIRHEITA_TEKSTI}")
+        print("")
+        
         self.sanastopalvelu.lue_sanasto()
+        palaute = self.sanastopalvelu.tarkista_teksti(sana)
+        if palaute:
+            print(palaute)
+            print(self.KORJATTU_MJONO_TEKSTI)            
+        else:
+            print(f"{self.EI_VIRHEITA_TEKSTI}")
 
