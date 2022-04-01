@@ -1,5 +1,5 @@
-Viikko 3
-Käytetyt tunnit: 10
+## Viikko 3  
+Käytetyt tunnit: 11
 
 Muokkasin sovelluksen rakennetta ja riippuvuuksia. Loin luokat Sanastopalvelu ja Trie. Sanastopalvelu lukee sanaston ja tallentaa sen Trie-puuhun. Tarkastelin eri vaihtoehtoja Trie-tietorakenteen luomiseen ja päädyin ainakin alustavasti käsittelemään "solmuja" sanakirjan avulla. En siis toteuttanut erikseen solmu-oliota. 
 
