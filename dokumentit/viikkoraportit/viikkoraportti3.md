@@ -9,4 +9,4 @@ Syvensin tällä viikolla tietämystäni Trie-tietorakenteesta, vaikka viime vii
 
 Kohtasin joitakin ongelmia projektinhallinnassa. Windows-koneeni ei jostain syystä enää tunnistanut Poetrya, mutta uudelleen asentaminen auttoi. Toinen vielä ratkaisematon (mutta ei niin kriittinen) ongelma koskee sanasto-tiedostoa, jota käytän. Sanasto sisältää nyt paljon epätyypillisiä sanoja ja lyhenteitä. Saatan vaihtaa sanaston projektin aikana. Lisäksi korjaustoiminnon toteuttamisessa mietityttää tällä hetkellä mm. välimerkkien käsittely.
 
-Ensi viikolla olisi tarkoitus lähteä toteuttamaan varsinaista kirjoitusvirheen korjaustoimintoa Damerau–Levenshtein -etäisyyteen perustuen.
+Ensi viikolla olisi tarkoitus lähteä toteuttamaan varsinaista kirjoitusvirheen korjaustoimintoa Damerau–Levenshtein -etäisyyteen perustuen. Myös docstringin lisääminen koodiin kuuluu ensi viikon tavoitteisiini. Jos aikaa jää, luon/parantelen lisäksi vaadittua dokumentaatiota.
