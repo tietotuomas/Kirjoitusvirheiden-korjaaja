@@ -3,6 +3,7 @@ from services.vocabulary_service import Sanastopalvelu
 
 def main():
     sanasto_palvelu = Sanastopalvelu()
+    sanasto_palvelu.lue_sanasto()
     kayttoliittyma = UI(sanasto_palvelu)
     kayttoliittyma.kaynnista()
 
