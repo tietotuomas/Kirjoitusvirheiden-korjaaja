@@ -31,12 +31,10 @@ class TestSanastopalveluTarkistaTeksti(unittest.TestCase):
         self.assertEqual(self.sanastopalvelu.tarkista_teksti("DiRt"), "")
 
     def test_teksti_dirty_dirtier_dirtiest_on_virheeton(self):
-        print(self.sanastopalvelu.tarkista_teksti("dirty dirtier dirtiest"))
         self.assertEqual(self.sanastopalvelu.tarkista_teksti(
             "dirty dirtier dirtiest"), "")
 
     def test_tekstin_dirty_dirtyer_dirtyest_kaksi_viimeista_sanaa_merkataan_virheelliseksi_ja_korjataan(self):
-        print(self.sanastopalvelu.tarkista_teksti("dirty dirtyer dirtyest"))
         self.assertEqual(self.sanastopalvelu.tarkista_teksti(
             "dirty dirtyer dirtyest"), "dirty dirtyer* dirtyest*\n\nTarkoititko:\ndirty dirtier dirtiest ?\n")
 
