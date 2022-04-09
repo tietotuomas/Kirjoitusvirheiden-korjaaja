@@ -6,7 +6,7 @@ class TestTrieEmpty(unittest.TestCase):
 
     def test_konstruktori_luo_tyhjan_juuren(self):
         self.trie = TrieSolmu()
-        self.assertEqual(self.trie, "{}")
+        self.assertEqual(len(self.trie.lapset), 0)
 
 class TestTrieFilled(unittest.TestCase):
 
