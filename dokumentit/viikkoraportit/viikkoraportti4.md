@@ -7,5 +7,4 @@ Sovelluksen tämänhetkinen kirjoitusvirheen korjaustoiminto ja sen rinnalle luo
 
 Koodin kommentoinnissa, projektin dokumentoinnissa sekä sovelluksen suorituskyky- ja yksikkötestaamisessa on vielä parannettavan varaa. Tein tällä viikolla ensimmäiset suorituskykytestit performance_testing.py-tiedostoon. Tein nopeusvertailua pythonin sisäänrakennetun listan ja luomani trie-tietorakenteen välillä. Korjasin myös vanhat yksikkötestit, mutta en ehtinyt tehdä juurikaan uusia testejä. Priorisoin sovelluksen ydintoiminnan ja siihen liittyvien ongelmien ratkaisemisen tällä viikolla kuitenkin kaiken muun edelle. Seuraavalla viikolla pyrin korjaamaan em. parannuksia vaativia asioita ja lisäämään Levenshtein-etäisyyteen Damerau-osuuden. 
 
-Muuta huomioitavaa: 
--Lisäsin ainakin toistaiseksi sovelluksen riippuvuuksiin numpy-kirjaston. Nympy-kirjaston avulla on helppo luoda ja muokata konkreettisia matriiseja, joita käytin Damerau–Levenshtein -etäisyyden opiskelussa. 
+Muuta huomioitavaa: Lisäsin ainakin toistaiseksi sovelluksen riippuvuuksiin numpy-kirjaston. Nympy-kirjaston avulla on helppo luoda ja muokata konkreettisia matriiseja, joita käytin Damerau–Levenshtein -etäisyyden opiskelussa. 
