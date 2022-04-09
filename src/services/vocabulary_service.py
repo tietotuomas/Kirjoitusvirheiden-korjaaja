@@ -10,7 +10,7 @@ class Sanastopalvelu:
 
     def lue_sanasto(self):
         kansio = os.path.dirname(__file__)
-        engl_sanasto = os.path.join(kansio, "..\\vocabulary\\english3.txt")
+        engl_sanasto = os.path.join(kansio, "../vocabulary/english3.txt")
 
         with open(engl_sanasto, encoding="utf8") as sanasto:
             for sana in sanasto:
