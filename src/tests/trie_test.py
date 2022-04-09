@@ -1,17 +1,17 @@
 import unittest
-from services.trie import Trie
+from services.trie import TrieSolmu
 
 
 class TestTrieEmpty(unittest.TestCase):
 
     def test_konstruktori_luo_tyhjan_juuren(self):
-        self.trie = Trie()
-        self.assertEqual(self.trie.juuri, {"*": "*"})
+        self.trie = TrieSolmu()
+        self.assertEqual(self.trie, "{}")
 
 class TestTrieFilled(unittest.TestCase):
 
     def setUp(self):
-        self.trie = Trie()
+        self.trie = TrieSolmu()
         sanat = ["123", "ok", "yes", "no", "dirt", "dirty",
                  "dirtier", "dirtiest", "jeff", "bezos"]
         for sana in sanat:

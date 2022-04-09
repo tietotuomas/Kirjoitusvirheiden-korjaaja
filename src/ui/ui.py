@@ -1,5 +1,8 @@
 
 
+from services.vocabulary_service import Sanastopalvelu
+
+
 class UI:
     """Tekstikäyttöliittymä 
     """
@@ -7,16 +10,20 @@ class UI:
     def __init__(self, sanastopalvelu):
         self.sanastopalvelu = sanastopalvelu
 
-    TERVEHDYS_TEKSTI = "Tervetuloa käyttämään kirjoitusvirheiden korjaaja-sovellusta!\n"
-    KOMENTO_TEKSTI = "\nAnna komento: "
+    TERVEHDYS_TEKSTI = "Tervetuloa käyttämään kirjoitusvirheiden korjaaja -sovellusta!\n"
+    KOMENTO_TEKSTI = "\nValitse komento syöttämällä numero: "
     KOMENNOT = {
-        "1": "Syötä englanninkielinen teksti: ",
-        "2": "Lopeta"
+        "1": "Syötä englanninkielinen teksti",
+        "2": "Laske kahden merkkijonon välinen editointietäisyys",
+        "3": "Lopeta"
     }
 
     EI_VIRHEITA_TEKSTI = "Sovellus ei löytänyt tekstistä virheitä\n"
-    KORJATTU_MJONO_TEKSTI = "Tähdellä merkatut sanat vaikuttavat virheelliseltä. Tarkoititko: \n"
-    VIRHEELLINEN_TEKSTI = "Virheellinen komento"
+    KORJATTU_MJONO_TEKSTI = "Tähdellä merkatut sanat vaikuttavat virheelliseltä: "
+    VIRHEELLINEN_TEKSTI = "Virheellinen komento\n"
+    EI_KORJAUKSIA_TEKSTI = "Sovellus ei pystynyt korjaamaan tähdellä merkattuja sanoja\n"
+    ENSIMMAINEN_MERKKIJONO = "Syötä ensimmäinen merkkijono: "
+    TOINEN_MERKKIJONO = "Syötä toinen merkkijono: "
     LOPETUS_TEKSTI = "Sovellus sulkeutuu"
 
     def kaynnista(self):
@@ -28,24 +35,37 @@ class UI:
                 print(f"{komento}: {self.KOMENNOT[komento]}")
             syote = input(self.KOMENTO_TEKSTI)
 
-            if syote == "2":
+            if syote == "3":
                 print(self.LOPETUS_TEKSTI)
                 break
-            if syote == "1":
-                self._lue_sana()
+            elif syote == "2":
+                self._lue_merkkijonot()
+            elif syote == "1":
+                self._lue_teksti()
             else:
                 print(self.VIRHEELLINEN_TEKSTI)
                 continue
 
-    def _lue_sana(self):
-        sana = input(self.KOMENNOT["1"])
+    def _lue_teksti(self):
+        teksti = input(self.KOMENNOT["1"]+": ")
         print("")
         
         self.sanastopalvelu.lue_sanasto()
-        palaute = self.sanastopalvelu.tarkista_teksti(sana)
-        if palaute:
-            print(palaute)
-            print(self.KORJATTU_MJONO_TEKSTI)            
+        palaute = self.sanastopalvelu.tarkista_teksti(teksti)
+        if palaute: 
+            print(self.KORJATTU_MJONO_TEKSTI)
+            if "*" in palaute.split("Tarkoititko:")[1]:
+                print(palaute)
+                print(self.EI_KORJAUKSIA_TEKSTI)
+            else:
+                print(palaute)            
         else:
             print(f"{self.EI_VIRHEITA_TEKSTI}")
+
+    def _lue_merkkijonot(self):
+        ensimmainen_sana = input(self.ENSIMMAINEN_MERKKIJONO)
+        toinen_sana = input(self.TOINEN_MERKKIJONO)
+        print(self.sanastopalvelu.laske_editointietaisyys(ensimmainen_sana, toinen_sana))
+        print("")
+
 
