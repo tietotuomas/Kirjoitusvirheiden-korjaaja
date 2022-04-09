@@ -1,15 +1,17 @@
 class TrieSolmu:
     """
-    Luokka mallintaa Trie-tietorakenteen (puun) solmua. Ensimmäinen solmu toimii puun juurena. 
-    Self.sana sisältää sanan vain jos jokin sana päättyy ko. solmuun. 
+    Luokka mallintaa Trie-tietorakenteen (puun) solmua. Ensimmäinen solmu toimii puun juurena.
+    Self.sana sisältää sanan vain jos jokin sana päättyy ko. solmuun.
     """
+
     def __init__(self):
         self.sana = None
         self.lapset = {}
 
     def lisaa_sana(self, sana: str):
         """
-        Lisätään sana puuhun, kirjain (haara) kerrallaan. Viimeisen kirjaimen kohdalla merkataan sana.
+        Lisätään sana puuhun, kirjain (haara) kerrallaan.
+        Viimeisen kirjaimen kohdalla merkataan sana.
         """
         solmu = self
         for kirjain in sana:
@@ -34,7 +36,6 @@ class TrieSolmu:
             return True
         return False
 
-    
     def __repr__(self) -> str:
         if self.sana:
             return f"{self.lapset}, sana: {self.sana}"

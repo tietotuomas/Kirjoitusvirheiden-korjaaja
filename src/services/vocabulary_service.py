@@ -18,7 +18,7 @@ class Sanastopalvelu:
                 self.trie.lisaa_sana(sana)
 
     def korjaa_sana(self, korjattava_sana:str):
-        ehdotukset = self.levenshtein.etsiKorjaukset(self.trie, korjattava_sana, 3)
+        ehdotukset = self.levenshtein.etsi_korjaukset(self.trie, korjattava_sana, 3)
         if ehdotukset:
             korjattava_sana = min(ehdotukset, key = lambda t: t[1])[0]
         return korjattava_sana
@@ -41,5 +41,3 @@ class Sanastopalvelu:
     def laske_editointietaisyys(self, ensimmainen_mjono: str, toinen_mjono: str):
         etaisyys = self.levenshtein.levenstheinin_etaisyys(ensimmainen_mjono, toinen_mjono)
         return f"Merkkijonojen {ensimmainen_mjono} ja {toinen_mjono} välinen editointietäisyys on {int(etaisyys)}"
-
-

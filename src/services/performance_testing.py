@@ -79,11 +79,13 @@ if __name__ == '__main__':
     alku = datetime.datetime.now()
     for sana in tuhat_yleisinta_sanaa_virheilla:
         loytyyko = onko_sana_olemassa_lista(sana, lista)
-    print("Tuhannen yleisimmän sanan ja tuhannen tietorakenteesta löytymättömän sanan etsintä listan avulla:",
+    print("Tuhannen yleisimmän sanan ja tuhannen tietorakenteesta löytymättömän \
+        sanan etsintä listan avulla:",
           datetime.datetime.now() - alku)
 
     alku = datetime.datetime.now()
     for sana in tuhat_yleisinta_sanaa_virheilla:
         loytyyko = onko_sana_olemassa_trie(sana, trie)
-    print("Tuhannen yleisimmän sanan ja tuhannen tietorakenteesta löytymättömän sanan etsintä trie-puun avulla:",
+    print("Tuhannen yleisimmän sanan ja tuhannen tietorakenteesta löytymättömän \
+        sanan etsintä trie-puun avulla:",
           datetime.datetime.now() - alku)
