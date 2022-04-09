@@ -1,8 +1,3 @@
-
-
-from services.vocabulary_service import Sanastopalvelu
-
-
 class UI:
     """Tekstikäyttöliittymä 
     """
