@@ -6,7 +6,7 @@ from trie import TrieSolmu
 def lue_sanasto_trie():
     trie = TrieSolmu()
     kansio = os.path.dirname(__file__)
-    engl_sanasto = os.path.join(kansio, "..\\vocabulary\\words.txt")
+    engl_sanasto = os.path.join(kansio, "../vocabulary/words.txt")
 
     with open(engl_sanasto, encoding="utf8") as sanasto:
         for sana in sanasto:
@@ -19,7 +19,7 @@ def lue_sanasto_trie():
 def lue_sanasto_lista():
     sanalista = []
     kansio = os.path.dirname(__file__)
-    engl_sanasto = os.path.join(kansio, "..\\vocabulary\\words.txt")
+    engl_sanasto = os.path.join(kansio, "../vocabulary/words.txt")
 
     with open(engl_sanasto, encoding="utf8") as sanasto:
         for sana in sanasto:
@@ -40,7 +40,7 @@ def lue_testisanasto():
     sanalista = []
     sanalista_virheilla = []
     kansio = os.path.dirname(__file__)
-    engl_sanasto = os.path.join(kansio, "..\\vocabulary\\1-1000.txt")
+    engl_sanasto = os.path.join(kansio, "../vocabulary/1-1000.txt")
     with open(engl_sanasto, encoding="utf8") as sanasto:
         for sana in sanasto:
             sana = sana.lower().replace("\n", "")
