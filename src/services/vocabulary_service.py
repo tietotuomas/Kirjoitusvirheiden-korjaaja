@@ -1,6 +1,6 @@
 import os
-from services.trie import TrieSolmu
-from services.damerau_levenshtein import DamerauLevenshtein
+from datastructures.trie import TrieSolmu
+from datastructures.damerau_levenshtein import DamerauLevenshtein
 
 class Sanastopalvelu:
 
