@@ -5,15 +5,16 @@ class UI:
     def __init__(self, sanastopalvelu):
         self.sanastopalvelu = sanastopalvelu
 
-    TERVEHDYS_TEKSTI = "Tervetuloa käyttämään kirjoitusvirheiden korjaaja -sovellusta!\n"
+    TERVEHDYS_TEKSTI = "\nTervetuloa käyttämään kirjoitusvirheiden korjaaja -sovellusta!\n"
     KOMENTO_TEKSTI = "\nValitse komento syöttämällä numero: "
     KOMENNOT = {
         "1": "Syötä englanninkielinen teksti",
-        "2": "Laske kahden merkkijonon välinen editointietäisyys",
+        "2": "Laske kahden merkkijonon välinen editointietäisyys (Levenshteinin etäisyys)",
         "3": "Lopeta"
     }
 
     EI_VIRHEITA_TEKSTI = "Sovellus ei löytänyt tekstistä virheitä\n"
+    OHJE_TEKSTI_SYOTE = "Saadaksesi parhaan tuloksen korjaustoiminnolla, syötä teksti ilman välimerkkejä.\n"
     KORJATTU_MJONO_TEKSTI = "Tähdellä merkatut sanat vaikuttavat virheelliseltä: "
     VIRHEELLINEN_TEKSTI = "Virheellinen komento\n"
     EI_KORJAUKSIA_TEKSTI = "Sovellus ei pystynyt korjaamaan tähdellä merkattuja sanoja\n"
@@ -24,6 +25,7 @@ class UI:
     def kaynnista(self):
 
         print(self.TERVEHDYS_TEKSTI)
+        print(self.OHJE_TEKSTI_SYOTE)
 
         while True:
             for komento in self.KOMENNOT:
@@ -43,7 +45,7 @@ class UI:
 
     def _lue_teksti(self):
         teksti = input(self.KOMENNOT["1"]+": ")
-        print("")
+        
         
         self.sanastopalvelu.lue_sanasto()
         palaute = self.sanastopalvelu.tarkista_teksti(teksti)
