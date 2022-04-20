@@ -73,7 +73,6 @@ class DamerauLevenshtein:
 
         # Jos kirjain on sanan päättävä kirjain, lisätään sana ja sen pienin Damerau-Levenshtein -etäisyys tuloksiin
         if solmu.sana is not None:
-            print(solmu.sana)
             tulos.append((solmu.sana, nykyinen_rivi[-1]))
 
         edellinen_kirjain = kirjain
