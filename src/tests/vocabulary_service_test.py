@@ -42,6 +42,7 @@ class TestSanastopalveluTarkistaTeksti(unittest.TestCase):
         self.assertEqual(self.sanastopalvelu.tarkista_teksti(
             "hello world"), "hello* world*\n\nTarkoititko:\nhello* world* ?\n")
 
+
 class TestSanastopalveluLueSanasto(unittest.TestCase):
 
     @classmethod
@@ -69,4 +70,5 @@ class TestSanastopalveluLueSanasto(unittest.TestCase):
         self.assertTrue(self.sanastopalvelu.trie.onko_sana_olemassa("zythum"))
 
     def test_lue_sanaston_jalkeen_trie_tietorakenteessa_ei_ole_sanastoon_kuulumatonta_sanaa_ohjelmointi(self):
-        self.assertFalse(self.sanastopalvelu.trie.onko_sana_olemassa("ohjelmointi"))
+        self.assertFalse(
+            self.sanastopalvelu.trie.onko_sana_olemassa("ohjelmointi"))

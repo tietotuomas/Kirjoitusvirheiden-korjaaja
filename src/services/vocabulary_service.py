@@ -1,12 +1,12 @@
 import os
 from services.trie import TrieSolmu
-from services.levenshtein_distance import Levenshtein
+from services.damerau_levenshtein import DamerauLevenshtein
 
 class Sanastopalvelu:
 
     def __init__(self):
         self.trie = TrieSolmu()
-        self.levenshtein = Levenshtein()
+        self.levenshtein = DamerauLevenshtein()
 
     def lue_sanasto(self):
         kansio = os.path.dirname(__file__)
