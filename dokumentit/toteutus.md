@@ -18,6 +18,6 @@ Lopuksi loin sanastosta uuden tiedoston, jota sovellus käyttää. Kun sovellus 
 
 Sovelluksen kirjoitusvirheen korjaustoiminto perustuu Damerau-Levenshtein -etäisyyden ([def etsi_korjaukset](/src/datastructures/damerau_levenshtein.py)) ja editointietäisyyden laskutoiminto Levenshtein -etäisyyden mittaamiseen ([def levenstheinin_etaisyys](/src/datastructures/damerau_levenshtein.py)). Kirjoitusvirheen korjaustoiminto toimii siten, että sovellus tarkistaa ensiksi, löytyykö tekstisyötteen sanat (tai sana) trie-puuhun tallennetusta sanastosta. Jos sanastosta ei löydy jotain sanaa, laskee sovellus rekursiivisesti trie-puuta ja Damerau-Levenshtein -etäisyyttä hyödyntäen sanalle korjausehdotuksia. Tietyn (tällä hetkellä alle kuuden) maksimieditointietäisyyden puitteissa sanat lisätään korjausehdotuksiksi listaan. Lopuksi sovellus valitsee korjausehdotuksista sen sanan, jolla on pienin editointietäisyys ja pienin sijoitus. 
 
-Sovellus käsittelee sanoja pienillä kirjaimilla, sovellus ei siis huomioi eroa pienten ja isojen kirjainten välillä. Sovellus käsittelee myös välimerkit . ja , osana sanaa, ja tulkitsee siis esim. lauseen perässä olevan pisteen kirjoitusvirheeksi.
+Sovellus käsittelee sanoja pienillä kirjaimilla, sovellus ei siis huomioi eroa pienten ja isojen kirjainten välillä. Sovellus käsittelee pilkun ja pisteen osana sanaa, ja tulkitsee siis esim. lauseen perässä olevan pisteen kirjoitusvirheeksi.
 
 ## Saavutetut aika- ja tilavaativuudet 
