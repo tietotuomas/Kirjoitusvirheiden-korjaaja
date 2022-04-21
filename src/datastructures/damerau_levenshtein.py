@@ -71,9 +71,9 @@ class DamerauLevenshtein:
                 nykyinen_rivi[sarake] = min(
                     nykyinen_rivi[sarake], toissa_rivi[sarake-2] + 1)
 
-        # Jos kirjain on sanan päättävä kirjain, lisätään sana ja sen pienin Damerau-Levenshtein -etäisyys tuloksiin
-        if solmu.sana is not None:
-            tulos.append((solmu.sana, nykyinen_rivi[-1]))
+        # Jos kirjain on sanan päättävä kirjain ja sen pienin Damerau-Levenshtein -etäisyys on korkeintaan 5, lisätään sana tuloksiin        
+        if solmu.sana is not None and nykyinen_rivi[-1] <= 5:
+            tulos.append((solmu.sana, nykyinen_rivi[-1], solmu.sijoitus))
 
         edellinen_kirjain = kirjain
 
