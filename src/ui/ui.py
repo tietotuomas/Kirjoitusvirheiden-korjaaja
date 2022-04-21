@@ -25,7 +25,7 @@ class UI:
     def kaynnista(self):
 
         print(self.TERVEHDYS_TEKSTI)
-        print(self.OHJE_TEKSTI_SYOTE)
+        # print(self.OHJE_TEKSTI_SYOTE)
 
         while True:
             for komento in self.KOMENNOT:
@@ -45,9 +45,7 @@ class UI:
 
     def _lue_teksti(self):
         teksti = input(self.KOMENNOT["1"]+": ")
-        
-        
-        self.sanastopalvelu.lue_sanasto()
+
         palaute = self.sanastopalvelu.tarkista_teksti(teksti)
         if palaute: 
             print(self.KORJATTU_MJONO_TEKSTI)
