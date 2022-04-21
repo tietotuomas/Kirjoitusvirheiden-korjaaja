@@ -6,9 +6,10 @@ class TrieSolmu:
 
     def __init__(self):
         self.sana = None
+        self.sijoitus = None
         self.lapset = {}
 
-    def lisaa_sana(self, sana: str):
+    def lisaa_sana(self, sana: str, sijoitus: int):
         """
         Lisätään sana puuhun, kirjain (haara) kerrallaan.
         Viimeisen kirjaimen kohdalla merkataan sana.
@@ -21,6 +22,7 @@ class TrieSolmu:
             solmu = solmu.lapset[kirjain]
 
         solmu.sana = sana
+        solmu.sijoitus = sijoitus
 
     def onko_sana_olemassa(self, sana: str):
         """
