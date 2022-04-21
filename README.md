@@ -14,5 +14,5 @@ Helsingin yliopiston Aineopintojen harjoitustyö 2022 periodi 4.
 [Viikko 1](./dokumentit/viikkoraportit/viikkoraportti1.md)  
 [Viikko 2](./dokumentit/viikkoraportit/viikkoraportti2.md)  
 [Viikko 3](./dokumentit/viikkoraportit/viikkoraportti3.md)  
-[Viikko 4](./dokumentit/viikkoraportit/viikkoraportti4.md) 
+[Viikko 4](./dokumentit/viikkoraportit/viikkoraportti4.md)  
 [Viikko 5](./dokumentit/viikkoraportit/viikkoraportti5.md)  
