@@ -1,18 +1,16 @@
 import os
-from datastructures.trie import TrieSolmu
-from datastructures.damerau_levenshtein import DamerauLevenshtein
-
 
 class Sanastopalvelu:
 
-    def __init__(self):
-        self.trie = TrieSolmu()
-        self.levenshtein = DamerauLevenshtein()
+    def __init__(self, trie, dameraulevenshtein, tiedosto):
+        self.trie = trie
+        self.dameraulevenshtein = dameraulevenshtein
+        self.tiedosto = tiedosto
 
     def lue_sanasto(self):
         kansio = os.path.dirname(__file__)
         engl_sanasto = os.path.join(
-            kansio, "../vocabulary/200k_wiktionary_words.txt")
+            kansio, self.tiedosto)
 
         with open(engl_sanasto, encoding="utf8") as sanasto:
 
@@ -23,7 +21,7 @@ class Sanastopalvelu:
                 self.trie.lisaa_sana(sana, sijoitus)
 
     def korjaa_sana(self, korjattava_sana: str):
-        ehdotukset = self.levenshtein.etsi_korjaukset(
+        ehdotukset = self.dameraulevenshtein.etsi_korjaukset(
             self.trie, korjattava_sana)
         if ehdotukset:
             korjattava_sana = min(ehdotukset, key=lambda t: (t[1], t[2]))[0]
@@ -45,6 +43,6 @@ class Sanastopalvelu:
         return f"{' '.join(sanalista)}\n\nTarkoititko:\n{' '.join(korjattu_sanalista)} ?\n"
 
     def laske_editointietaisyys(self, ensimmainen_mjono: str, toinen_mjono: str):
-        etaisyys = self.levenshtein.levenstheinin_etaisyys(
+        etaisyys = self.dameraulevenshtein.levenstheinin_etaisyys(
             ensimmainen_mjono, toinen_mjono)
         return f"Merkkijonojen {ensimmainen_mjono} ja {toinen_mjono} välinen editointietäisyys on {int(etaisyys)}"
