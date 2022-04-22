@@ -35,8 +35,9 @@ class Sanastopalvelu:
         while i < len(sanalista):
             if not self.trie.onko_sana_olemassa(sanalista[i]):
                 virheeton = False
-                sanalista[i] = sanalista[i] + "*"
                 korjattu_sanalista[i] = self.korjaa_sana(sanalista[i])
+                sanalista[i] = sanalista[i] + "*"
+                
             i += 1
         if virheeton:
             return ""
@@ -45,4 +46,4 @@ class Sanastopalvelu:
     def laske_editointietaisyys(self, ensimmainen_mjono: str, toinen_mjono: str):
         etaisyys = self.dameraulevenshtein.levenstheinin_etaisyys(
             ensimmainen_mjono, toinen_mjono)
-        return f"Merkkijonojen {ensimmainen_mjono} ja {toinen_mjono} välinen editointietäisyys on {int(etaisyys)}"
+        return f"Merkkijonojen {ensimmainen_mjono} ja {toinen_mjono} välinen editointietäisyys on {etaisyys}"
