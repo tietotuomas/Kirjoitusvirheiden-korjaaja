@@ -1,6 +1,6 @@
 import unittest
 from services.vocabulary_service import Sanastopalvelu
-from services.trie import TrieSolmu
+from datastructures.trie import TrieSolmu
 
 
 class TestSanastopalvelu(unittest.TestCase):
