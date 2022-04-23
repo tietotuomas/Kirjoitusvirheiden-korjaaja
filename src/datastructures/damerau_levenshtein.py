@@ -28,7 +28,7 @@ class DamerauLevenshtein:
                     matriisi[rivi, sarake] = matriisi[rivi-1, sarake-1]
 
         # palautetaan matriisin oikean alakulman arvo, joka on siis sanojen pienin editointietäisyys
-        return matriisi[len(tarkistettava_sana)][len(oikea_sana)]
+        return int(matriisi[len(tarkistettava_sana)][len(oikea_sana)])
 
     # Etsii virheelliselle sanalle Damerau-Levenshtein -etäisyyksiä käymällä koko Trie-puun läpi
     def etsi_korjaukset(self, trie, sana):
@@ -42,7 +42,10 @@ class DamerauLevenshtein:
         for kirjain in trie.lapset:
             self.etsi_rekursiivisesti(trie.lapset[kirjain], kirjain, None, sana, nykyinen_rivi, None,
                                       tulos)
-        # palauttaa tulokset tuple-listana; ensimmäinen alkio sisältää sanan, toinen alkio Damerau-Levenshtein -etäisyyden
+        # palauttaa tulokset tuple-listana; 
+        # ensimmäinen alkio sisältää sanan, 
+        # toinen alkio Damerau-Levenshtein -etäisyyden,
+        # kolmas alkio sijoituksen
         return tulos
 
     def etsi_rekursiivisesti(self, solmu, kirjain, edellinen_kirjain, sana, edellinen_rivi, toissa_rivi, tulos):
