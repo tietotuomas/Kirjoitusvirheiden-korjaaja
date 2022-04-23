@@ -43,15 +43,15 @@ class Sanastopalvelu:
         Etsii virheelliseksi tunnistetulle sanalle korjausehdotuksia
         dameraulevenshtein.etsi_korjaukset- metodin avulla. Valitsee
         korjausehdotuksista sen sanan, jolla on pienin editointietäisyys.
-        Jos kahdella tai useammalla sanalla on sama editointietäisyys, 
+        Jos kahdella tai useammalla sanalla on sama editointietäisyys,
         valitsee sanan, jolla pienempi sijoitus.
 
         Args:
             korjattava_sana: Virheelliseksi tunnistettu sana.
 
         Returns:
-            Parhaimman korjausehdotuksen. 
-            Jos dameraulevenshtein ei anna korjausehdotuksia, 
+            Parhaimman korjausehdotuksen.
+            Jos dameraulevenshtein ei anna korjausehdotuksia,
             palauttaa alkuperäisen korjaamattoman sanan.
         """
         ehdotukset = self.dameraulevenshtein.etsi_korjaukset(
@@ -71,7 +71,7 @@ class Sanastopalvelu:
 
         Returns:
             Palauttaa f-merkkijonomuotoisen tulostuksen,
-            joka sisältää sekä alkuperäisen että korjatun tekstin. 
+            joka sisältää sekä alkuperäisen että korjatun tekstin.
             Virheelliset sanat merkitään tähdellä alkuperäiseen tekstiin.
             Jos teksti ei sisällä virheellisiä sanoja, palauttaa tyhjän merkkijonon.
         """
@@ -100,7 +100,8 @@ class Sanastopalvelu:
             toinen_mjono: Käyttäjän syöttämä toinen merkkijono.
 
         Returns:
-            F-merkkijonon, joka sisältää käyttäjän syöttämät merkkijonot ja niiden editointietäisyyden.
+            F-merkkijonon, joka sisältää käyttäjän syöttämät merkkijonot
+            ja niiden editointietäisyyden.
         """
         etaisyys = self.dameraulevenshtein.levenstheinin_etaisyys(
             ensimmainen_mjono, toinen_mjono)

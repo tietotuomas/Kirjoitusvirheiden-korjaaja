@@ -16,7 +16,7 @@ class TrieSolmu:
 
         Args:
             sana: Tietorakenteeseen lisättävä sana.
-            sijoitus: Sijoitus ilmaisee, kuinka usein sana esiintyy 
+            sijoitus: Sijoitus ilmaisee, kuinka usein sana esiintyy
             englanninkielisessä tekstissä suhteessa muihin sanoihin.
         """
         solmu = self

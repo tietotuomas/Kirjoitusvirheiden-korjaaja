@@ -97,7 +97,8 @@ class DamerauLevenshtein:
     # ja joka ei sisällä transpoosia eli Damerau-osuutta
 
     # def etsi_korjaukset_max(self, trie, sana, maksimi_etaisyys):
-    #     # Etsii virheelliselle sanalle todennäköisimmät vaihtoehdot editointietäisyyden perusteella
+    #     # Etsii virheelliselle sanalle todennäköisimmät vaihtoehdot
+    #       editointietäisyyden perusteella
 
     #     # ensimmäinen rivi täytetään oikean sanan+1 pituusindekseillä
     #     nykyinen_rivi = range(len(sana) + 1)
