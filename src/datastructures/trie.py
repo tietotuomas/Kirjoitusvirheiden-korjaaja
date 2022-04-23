@@ -37,8 +37,3 @@ class TrieSolmu:
         if solmu.sana:
             return True
         return False
-
-    def __repr__(self) -> str:
-        if self.sana:
-            return f"{self.lapset}, sana: {self.sana}, sijoitus: {self.sijoitus}"
-        return f"{self.lapset}"
