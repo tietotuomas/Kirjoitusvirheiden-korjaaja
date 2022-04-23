@@ -2,9 +2,9 @@
 
 ### Yksikkötestaus
 
-Projektin testaus on toteutettu Pythonin unittest-sovelluskehyksen avulla. Testit on toteutettu tällä hetkellä tiedostoille vocabulary_service.py ja trie.py, välillisesti myös tiedostolle levenshtein_distance.py. 
+Projektin testaus on toteutettu Pythonin unittest-sovelluskehyksen avulla. Riippuvuuksia on pyritty tarvittaessa eliminoimaan Mock-kirjastolla. Testien hakemistorakenne jäljittelee sovelluksen rakennetta. Testit on toteutettu tiedostoille vocabulary_service.py, trie.py sekä damerau_levenshtein.py. 
 
-Tiedostot index.py ja performance_testing.py sekä käyttöliittymä on rajattu testien ulkopuolelle. 
+Tiedostot index.py ja trie_performance_testing.py sekä ui.py on rajattu testien ulkopuolelle. 
 
 ![Testikattavuus](/dokumentit/coverage.png)
 
@@ -12,7 +12,7 @@ Raportti testikattavuudesta on rakennettu coverage-työkalun avulla.
 
 ### Suorituskyky
 
-Suorituskyvyn testausta varten services-kansioon on luotu performance_testing.py. Tällä hetkellä ko. tiedoston ajamalla voi testata suorituskykyeroja (nopeutta) pythonin sisäänrakennetun listan ja luomani trie-tietorakenteen välillä. Odotetusti sanaston lukeminen/tallentaminen listaan on nopeampaa listaan kuin trie-puuhun, mutta sanojen etsiminen puusta on nopeampaa kuin listasta etsiminen.
+Suorituskyvyn testausta varten services-kansioon on luotu trie_performance_testing.py. Ko. tiedoston ajamalla voi testata suorituskykyeroja (nopeutta) pythonin sisäänrakennetun listan ja luomani trie-tietorakenteen välillä. Odotetusti sanaston lukeminen/tallentaminen listaan on nopeampaa listaan kuin trie-puuhun, mutta sanojen etsiminen puusta on nopeampaa kuin listasta etsiminen.
 
 ```
 Sanaston lukeminen listaan: 0:00:00.120748
