@@ -18,5 +18,5 @@ poetry run pylint src
 ```
 Trie-tietorakenteen suorituskykytestin voit ajaa projektin juurikansiosta komennolla:
 ```
-poetry run python /src/datastructures/trie_performance_testing.py
+poetry run python src/datastructures/trie_performance_testing.py
 ```
