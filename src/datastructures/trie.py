@@ -11,8 +11,13 @@ class TrieSolmu:
 
     def lisaa_sana(self, sana: str, sijoitus: int):
         """
-        Lisätään sana puuhun, kirjain (haara) kerrallaan.
+        Lisää sanan puuhun, kirjain (haara) kerrallaan.
         Viimeisen kirjaimen kohdalla merkataan sana ja sen sijoitus.
+
+        Args:
+            sana: Tietorakenteeseen lisättävä sana.
+            sijoitus: Sijoitus ilmaisee, kuinka usein sana esiintyy 
+            englanninkielisessä tekstissä suhteessa muihin sanoihin.
         """
         solmu = self
         for kirjain in sana:
@@ -27,7 +32,12 @@ class TrieSolmu:
     def onko_sana_olemassa(self, sana: str):
         """
         Tarkistaa, löytyykö sana puusta.
-        Palauttaa True, jos löytyy. Muuten False.
+
+        Args:
+            sana: Tietorakenteesta etsittävä sana.
+
+        Returns:
+            True, jos löytyy. Muuten False.
         """
         solmu = self
         for kirjain in sana:
