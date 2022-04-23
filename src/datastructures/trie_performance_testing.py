@@ -8,13 +8,14 @@ def lue_sanasto_trie():
     kansio = os.path.dirname(__file__)
     engl_sanasto = os.path.join(kansio, "../vocabulary/words.txt")
 
+    sijoitus = 0
     with open(engl_sanasto, encoding="utf8") as sanasto:
         for sana in sanasto:
+            sijoitus += 1
             sana = sana.lower().replace("\n", "")
-            trie.lisaa_sana(sana)
+            trie.lisaa_sana(sana, sijoitus)
 
     return trie
-
 
 def lue_sanasto_lista():
     sanalista = []
