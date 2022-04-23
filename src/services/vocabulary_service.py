@@ -1,5 +1,6 @@
 import os
 
+
 class Sanastopalvelu:
 
     def __init__(self, trie, dameraulevenshtein, tiedosto):
@@ -37,7 +38,7 @@ class Sanastopalvelu:
                 virheeton = False
                 korjattu_sanalista[i] = self.korjaa_sana(sanalista[i])
                 sanalista[i] = sanalista[i] + "*"
-                
+
             i += 1
         if virheeton:
             return ""

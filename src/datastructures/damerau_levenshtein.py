@@ -22,7 +22,9 @@ class DamerauLevenshtein:
                 # ja lisätään siihen 1
                 if oikea_sana_listana[sarake-1] != tarkistettava_sana_listana[rivi-1]:
                     matriisi[rivi, sarake] = min(
-                        matriisi[rivi-1, sarake], matriisi[rivi, sarake-1], matriisi[rivi-1, sarake-1]) + 1
+                        matriisi[rivi-1, sarake],
+                        matriisi[rivi, sarake-1],
+                        matriisi[rivi-1, sarake-1]) + 1
                 # jos kirjaimet ovat samoja, kopioidaan matriisissa vinoittain vasemmalla oleva luku
                 else:
                     matriisi[rivi, sarake] = matriisi[rivi-1, sarake-1]
@@ -40,15 +42,16 @@ class DamerauLevenshtein:
 
         # käydään läpi kaikki Trie-puuhun tallennetut kirjaimet/haarat
         for kirjain in trie.lapset:
-            self.etsi_rekursiivisesti(trie.lapset[kirjain], kirjain, None, sana, nykyinen_rivi, None,
-                                      tulos)
-        # palauttaa tulokset tuple-listana; 
-        # ensimmäinen alkio sisältää sanan, 
+            self.etsi_rekursiivisesti(trie.lapset[kirjain], kirjain, None,
+                                      sana, nykyinen_rivi, None, tulos)
+        # palauttaa tulokset tuple-listana;
+        # ensimmäinen alkio sisältää sanan,
         # toinen alkio Damerau-Levenshtein -etäisyyden,
         # kolmas alkio sijoituksen
         return tulos
 
-    def etsi_rekursiivisesti(self, solmu, kirjain, edellinen_kirjain, sana, edellinen_rivi, toissa_rivi, tulos):
+    def etsi_rekursiivisesti(self, solmu, kirjain, edellinen_kirjain,
+                             sana, edellinen_rivi, toissa_rivi, tulos):
 
         sarakkeet = len(sana) + 1
         nykyinen_rivi = [edellinen_rivi[0] + 1]
@@ -69,22 +72,29 @@ class DamerauLevenshtein:
 
             nykyinen_rivi.append(min(lisays_hinta, poisto_hinta, vaihto_hinta))
 
-            # Transpoosi eli Dameraus-osuuus - tarkistetaan, kannattaako vierekkäisten kirjaimien vaihto
-            if edellinen_kirjain and sarake-1 > 0 and kirjain == sana[sarake-2] and edellinen_kirjain == sana[sarake-1] and sana[sarake-1] != kirjain:
+            # Transpoosi eli Dameraus-osuuus - tarkistetaan,
+            # kannattaako vierekkäisten kirjaimien vaihto
+            if edellinen_kirjain and sarake-1 > 0 and kirjain == sana[sarake-2]\
+                    and edellinen_kirjain == sana[sarake-1] and sana[sarake-1] != kirjain:
                 nykyinen_rivi[sarake] = min(
                     nykyinen_rivi[sarake], toissa_rivi[sarake-2] + 1)
 
-        # Jos kirjain on sanan päättävä kirjain ja sen pienin Damerau-Levenshtein -etäisyys on korkeintaan 5, lisätään sana tuloksiin        
+        # Jos kirjain on sanan päättävä kirjain ja
+        # sen pienin Damerau-Levenshtein -etäisyys on korkeintaan 5,
+        # lisätään sana tuloksiin
         if solmu.sana is not None and nykyinen_rivi[-1] <= 5:
             tulos.append((solmu.sana, nykyinen_rivi[-1], solmu.sijoitus))
 
         edellinen_kirjain = kirjain
 
         for kirjain in solmu.lapset:
-            self.etsi_rekursiivisesti(solmu.lapset[kirjain], kirjain, edellinen_kirjain, sana, nykyinen_rivi, edellinen_rivi,
-                                      tulos)
+            self.etsi_rekursiivisesti(solmu.lapset[kirjain], kirjain,
+                                      edellinen_kirjain, sana, nykyinen_rivi,
+                                      edellinen_rivi, tulos)
 
-    # maksimi_etäisyyttä hyödyntävä variaatio, joka ei välttämättä toimi oikein ja joka ei sisällä transpoosia eli Damerau-osuutta
+    # maksimi_etäisyyttä hyödyntävä variaatio,
+    # joka ei välttämättä toimi oikein
+    # ja joka ei sisällä transpoosia eli Damerau-osuutta
 
     # def etsi_korjaukset_max(self, trie, sana, maksimi_etaisyys):
     #     # Etsii virheelliselle sanalle todennäköisimmät vaihtoehdot editointietäisyyden perusteella
