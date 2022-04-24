@@ -4,7 +4,7 @@ from datastructures.trie import TrieSolmu
 from datastructures.damerau_levenshtein import DamerauLevenshtein
 
 def main():
-    sanasto = "../vocabulary/200k_wiktionary_words.txt"
+    sanasto = "../vocabulary/modified_wiktionary.txt"
     trie = TrieSolmu()
     damerau_levenshtein = DamerauLevenshtein()
     sanasto_palvelu = Sanastopalvelu(trie, damerau_levenshtein, sanasto)
