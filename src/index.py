@@ -1,7 +1,7 @@
 from ui.ui import UI
 from services.vocabulary_service import Sanastopalvelu
 from datastructures.trie import TrieSolmu
-from datastructures.damerau_levenshtein import DamerauLevenshtein
+from services.damerau_levenshtein import DamerauLevenshtein
 
 def main():
     sanasto = "../vocabulary/modified_wiktionary.txt"

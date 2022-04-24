@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-from datastructures.damerau_levenshtein import DamerauLevenshtein
+from services.damerau_levenshtein import DamerauLevenshtein
 from services.vocabulary_service import Sanastopalvelu
 from datastructures.trie import TrieSolmu
 

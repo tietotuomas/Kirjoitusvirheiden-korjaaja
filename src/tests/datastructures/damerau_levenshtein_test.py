@@ -1,5 +1,5 @@
 import unittest
-from datastructures.damerau_levenshtein import DamerauLevenshtein
+from services.damerau_levenshtein import DamerauLevenshtein
 from datastructures.trie import TrieSolmu
 
 
