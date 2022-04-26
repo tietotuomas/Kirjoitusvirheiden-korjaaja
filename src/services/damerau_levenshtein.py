@@ -37,13 +37,15 @@ class DamerauLevenshtein:
 
         # ensimmäinen rivi täytetään oikean sanan+1 pituusindekseillä
         nykyinen_rivi = range(len(sana) + 1)
-
+        #alustetaan pienimmäksi Damerau-Levenshtein -etäisyydeksi 5
+        pienin = 5
+        #luodaan tyhjä tuloslista
         tulos = []
 
         # käydään läpi kaikki Trie-puuhun tallennetut kirjaimet/haarat
         for kirjain in trie.lapset:
             self.etsi_rekursiivisesti(trie.lapset[kirjain], kirjain, None,
-                                      sana, nykyinen_rivi, None, tulos)
+                                      sana, nykyinen_rivi, None, tulos, pienin)
         # palauttaa tulokset tuple-listana;
         # ensimmäinen alkio sisältää sanan,
         # toinen alkio Damerau-Levenshtein -etäisyyden,
@@ -51,7 +53,7 @@ class DamerauLevenshtein:
         return tulos
 
     def etsi_rekursiivisesti(self, solmu, kirjain, edellinen_kirjain,
-                             sana, edellinen_rivi, toissa_rivi, tulos):
+                             sana, edellinen_rivi, toissa_rivi, tulos, pienin):
 
         sarakkeet = len(sana) + 1
         nykyinen_rivi = [edellinen_rivi[0] + 1]
@@ -80,9 +82,11 @@ class DamerauLevenshtein:
                     nykyinen_rivi[sarake], toissa_rivi[sarake-2] + 1)
 
         # Jos kirjain on sanan päättävä kirjain ja
-        # sen pienin Damerau-Levenshtein -etäisyys on korkeintaan 5,
+        # sanan pienin Damerau-Levenshtein -etäisyys on yhtä pieni
+        # tai pienempi kuin listan pienin etäisyys (korkeintaan 5),
         # lisätään sana tuloksiin
-        if solmu.sana is not None and nykyinen_rivi[-1] <= 5:
+        if solmu.sana is not None and nykyinen_rivi[-1] <= pienin:
+            pienin = nykyinen_rivi[-1]
             tulos.append((solmu.sana, nykyinen_rivi[-1], solmu.sijoitus))
 
         edellinen_kirjain = kirjain
@@ -90,7 +94,7 @@ class DamerauLevenshtein:
         for kirjain in solmu.lapset:
             self.etsi_rekursiivisesti(solmu.lapset[kirjain], kirjain,
                                       edellinen_kirjain, sana, nykyinen_rivi,
-                                      edellinen_rivi, tulos)
+                                      edellinen_rivi, tulos, pienin)
 
     # maksimi_etäisyyttä hyödyntävä variaatio,
     # joka ei välttämättä toimi oikein
