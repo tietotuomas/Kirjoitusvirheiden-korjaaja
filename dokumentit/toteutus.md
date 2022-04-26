@@ -2,7 +2,7 @@
 
 ## Käyttötarkoitus
 
-Sovelluksen ensisijainen käyttötarkoitus on kirjoituisvirheiden korjaus. Sovellus tunnistaa englanninkielisestä syötetystä tekstistä kirjoitusvirheet ja antaa niille korjausehdotukset. Toisena toimintona sovellus laskee kahden merkkijonon editointietäisyyden.
+Sovelluksen ensisijainen käyttötarkoitus on kirjoitusvirheiden korjaus. Sovellus tunnistaa englanninkielisestä syötetystä tekstistä kirjoitusvirheet ja antaa niille korjausehdotukset. Toisena toimintona sovellus laskee kahden merkkijonon editointietäisyyden.
 
 ## Toteutus
 
@@ -33,7 +33,10 @@ Lopuksi kirjoitin sanastosta uuden tiedoston, jota sovellus käyttää. Kun sove
 
 ### Korjaustoiminto
 
-Sovelluksen kirjoitusvirheen korjaustoiminto perustuu Damerau-Levenshtein -etäisyyden ([def etsi_korjaukset](/src/datastructures/damerau_levenshtein.py)) ja editointietäisyyden laskutoiminto Levenshtein -etäisyyden mittaamiseen ([def levenstheinin_etaisyys](/src/datastructures/damerau_levenshtein.py)). Kirjoitusvirheen korjaustoiminto toimii siten, että sovellus tarkistaa ensiksi, löytyykö tekstisyötteen sanat (tai sana) trie-puuhun tallennetusta sanastosta. Jos sanastosta ei löydy jotain sanaa, laskee sovellus rekursiivisesti trie-puuta ja Damerau-Levenshtein -etäisyyttä hyödyntäen sanalle korjausehdotuksia. Tietyn (tällä hetkellä alle kuuden) maksimieditointietäisyyden puitteissa sanat lisätään korjausehdotuksiksi listaan. Lopuksi sovellus valitsee korjausehdotuksista sen sanan, jolla on pienin editointietäisyys ja toissijaisesti pienin sijoitus. 
+Sovelluksen kirjoitusvirheen korjaustoiminto perustuu Damerau-Levenshtein -etäisyyden ([def etsi_korjaukset](/src/services/damerau_levenshtein.py)) ja editointietäisyyden laskutoiminto Levenshtein -etäisyyden mittaamiseen ([def levenstheinin_etaisyys](/src/services/damerau_levenshtein.py)). 
+
+Kirjoitusvirheen korjaustoiminto toimii seuraavalla tavalla:  
+Aluksi Sanastopalvelun [tarkista_teksti](/src/services/vocabulary_service.py) tarkistaa käyttäjän syötteen sana kerrallaan. Metodi tarkistaa, löytyykö sana Trie-tietorakenteesta kutsumalla TrieSolmun [onko_sana_olemassa](/src/datastructures/trie.py) -metodia. Jos sanastosta ei löydy jotain sanaa, kutsuu [tarkista_teksti](/src/services/vocabulary_service.py) saman luokan [korjaa_sana](/src/services/vocabulary_service.py) -metodia, joka kutsuu puolestaan DamerauLevenshtein-luokan [etsi_korjaukset](/src/services/damerau_levenshtein.py) -algoritmia. [Etsi_korjaukset](/src/services/damerau_levenshtein.py) etsii [etsi_rekursiivisesti](/src/services/damerau_levenshtein.py)-metodia kutsuen (Trie-tietorakennetta ja Damerau-Levenshtein -etäisyyttä hyödyntäen) sanalle korjausehdotuksia, jotka lisätään [korjaa_sana](/src/services/vocabulary_service.py)-metodille palautettavaan listaan. Korjausehdotuksia karsitaan pitämällä kirjaa korjausehdotus-listan pienimmästä edintointietäisyydestä. Lopuksi [korjaa_sana](/src/services/vocabulary_service.py) valitsee korjausehdotuksista sen sanan, jolla on pienin editointietäisyys ja toissijaisesti pienin sijoitus. 
 
 Sovellus käsittelee sanoja pienillä kirjaimilla, sovellus ei siis huomioi eroa pienten ja isojen kirjainten välillä. Sovellus käsittelee pilkun ja pisteen osana sanaa, ja tulkitsee siis esim. lauseen perässä olevan pisteen kirjoitusvirheeksi.
 
