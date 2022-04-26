@@ -1,4 +1,5 @@
 # Kirjoitusvirheiden-korjaaja
+![GitHub Actions](https://github.com/tietotuomas/Kirjoitusvirheiden-korjaaja/workflows/CI/badge.svg)
 [![codecov](https://codecov.io/gh/tietotuomas/Kirjoitusvirheiden-korjaaja/branch/main/graph/badge.svg?token=OYA9RFPNIL)](https://codecov.io/gh/tietotuomas/Kirjoitusvirheiden-korjaaja)
 
 Helsingin yliopiston Aineopintojen harjoitustyö 2022 periodi 4.
