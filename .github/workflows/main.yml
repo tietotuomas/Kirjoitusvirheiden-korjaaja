@@ -26,4 +26,4 @@ jobs:
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
     - name: Run pylint
-      run: poetry run pylint src
+      run: poetry run pylint src --threshold 9
