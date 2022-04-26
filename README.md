@@ -4,6 +4,8 @@
 
 Helsingin yliopiston Aineopintojen harjoitustyö 2022 periodi 4.
 
+Sovelluksen ensisijainen käyttötarkoitus on kirjoitusvirheiden korjaus. Sovellus tunnistaa englanninkielisestä syötetystä tekstistä kirjoitusvirheet ja antaa niille korjausehdotukset. Toisena toimintona sovellus laskee kahden merkkijonon editointietäisyyden.
+
 ## Dokumentaatio
 
 [Määrittelydokumentti](./dokumentit/maarittely.md)  
