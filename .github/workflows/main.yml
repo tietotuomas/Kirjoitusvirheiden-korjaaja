@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.8"
+    - name: Install dependencies
+      run: |
+        pip install poetry
+        poetry install
+    - name: Run tests
+      run: poetry run coverage run --branch -m pytest
+    - name: Generate coverage report
+      run: poetry run coverage xml
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
