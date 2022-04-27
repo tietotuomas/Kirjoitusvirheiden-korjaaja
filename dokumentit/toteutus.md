@@ -38,6 +38,13 @@ Sovelluksen kirjoitusvirheen korjaustoiminto perustuu Damerau-Levenshtein -etäi
 Kirjoitusvirheen korjaustoiminto toimii seuraavalla tavalla:  
 Aluksi Sanastopalvelun [tarkista_teksti](/src/services/vocabulary_service.py) tarkistaa käyttäjän syötteen sana kerrallaan. Metodi tarkistaa, löytyykö sana Trie-tietorakenteesta kutsumalla TrieSolmun [onko_sana_olemassa](/src/datastructures/trie.py) -metodia. Jos sanastosta ei löydy jotain sanaa, kutsuu [tarkista_teksti](/src/services/vocabulary_service.py) saman luokan [korjaa_sana](/src/services/vocabulary_service.py) -metodia, joka kutsuu puolestaan DamerauLevenshtein-luokan [etsi_korjaukset](/src/services/damerau_levenshtein.py) -algoritmia. [Etsi_korjaukset](/src/services/damerau_levenshtein.py) etsii [etsi_rekursiivisesti](/src/services/damerau_levenshtein.py)-metodia kutsuen (Trie-tietorakennetta ja Damerau-Levenshtein -etäisyyttä hyödyntäen) sanalle korjausehdotuksia, jotka lisätään [korjaa_sana](/src/services/vocabulary_service.py)-metodille palautettavaan listaan. Korjausehdotuksia karsitaan pitämällä kirjaa korjausehdotus-listan pienimmästä edintointietäisyydestä. Lopuksi [korjaa_sana](/src/services/vocabulary_service.py) valitsee korjausehdotuksista sen sanan, jolla on pienin editointietäisyys ja toissijaisesti pienin sijoitus. 
 
-Sovellus käsittelee sanoja pienillä kirjaimilla, sovellus ei siis huomioi eroa pienten ja isojen kirjainten välillä. Sovellus käsittelee pilkun ja pisteen osana sanaa, ja tulkitsee siis esim. lauseen perässä olevan pisteen kirjoitusvirheeksi.
-
 ## Saavutetut aika- ja tilavaativuudet 
+
+
+## Parannuskohteet
+
+Sovellus käsittelee sanoja pienillä kirjaimilla, sovellus ei siis huomioi eroa pienten ja isojen kirjainten välillä. Lisäksi sovellus käsittelee pilkun ja pisteen osana sanaa, ja tulkitsee siis esim. lauseen perässä olevan kirjoitusvirheeksi.
+
+Sanan valintaa korjausehdotuslistasta voisi hienosäätää. Esimerkiksi joidenkin useasti esiintyvien (eli korkean sijoituksen) sanojen valinta olisi parempi/todennäköisempi vaihtoehto, vaikka tällaisen sanan editointietäisyys olisikin yksikön verran suurempi kuin jonkin toisen, harvinaisemman sanan editointietäisyys. Korjaustoimintoa voisi edelleen kehittää niin, että (esim. korjausehdotus-listasta sanaa valittaessa) sovellus tarkastelisi tyypillisimpiä kirjoitusvirheitä tai sitä, mitkä sanat esiintyvät useiten englanninkielisessä tekstissä yhdessä.
+
+Sovellusta voisi myös nopeuttaa, erityisesti karsimalla harvinaisempia sanoja pois sanastosta mutta myös esimerkiksi tuloslistaan sanoja valittaessa.
