@@ -6,9 +6,11 @@ Sovelluksen ensisijainen käyttötarkoitus on kirjoitusvirheiden korjaus. Sovell
 
 ## Toteutus
 
-Sovellus on toteuttu **Pythonilla** ja riippuvuuksien hallinta **Poetrylla**. Sovelluksen toiminta perustuu [trie-tietorakenteen](https://en.wikipedia.org/wiki/Trie) ja [Damerau–Levenshtein -etäisyyden](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance) hyödyntämiseen. 
+Sovellus on toteuttu **Pythonilla** ja riippuvuuksien hallinta **Poetrylla**. Sovelluksen toiminta perustuu [trie-tietorakenteen](https://en.wikipedia.org/wiki/Trie) ja [Damerau–Levenshtein -etäisyyden](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance) hyödyntämiseen. Kts myös [muut lähteet](https://github.com/tietotuomas/Kirjoitusvirheiden-korjaaja/edit/main/dokumentit/toteutus.md#lis%C3%A4%C3%A4-dameraulevenshtein--et%C3%A4isyydest%C3%A4-ja-sen-hy%C3%B6dynt%C3%A4misest%C3%A4-kirjoitusvirhedeiden-korjaamisessa).
 
 Sovelluksen käyttöliittymä, sovelluslogiikka ja tallennuslogiikka on eriyetty kerrosarkkitehtuurin hengessä omiksi kokonaisuuksikseen. Sovelluksen hakemistorakenne on seuraavalainen:
+
+![Hakemistorakenne](/dokumentit/hakemistorakenne.png)
 
 
 [Ui.py](/src/ui/ui.py) sisältää sovelluksen tekstipohjaisen käyttöliittymän.   
@@ -64,3 +66,9 @@ Sanan valintaa korjausehdotuslistasta voisi hienosäätää. Esimerkiksi joidenk
 Kooditasolla parantamisen varaa voisi olla ainakin metodien yksi vastuu -periaatteen noudattamisessa. Jotkin metodit voisi jakaa moneen eri osaan. Toisaalta esimerkiksi melko pitkän [etsi_rekursiivisesti](/src/services/damerau_levenshtein.py)-metodin jakaminen osiin tuntuisi epäintuitiiviselta, vaikka mm. sanan lisäyksen tuloslistaan voisi hyvin eriyttää omaksi metodikseen.
 
 Sovellusta voisi myös nopeuttaa, erityisesti karsimalla harvinaisempia sanoja pois sanastosta mutta myös esimerkiksi tuloslistaan sanoja valittaessa.
+
+### Lisää Damerau–Levenshtein -etäisyydestä ja sen hyödyntämisestä kirjoitusvirhedeiden korjaamisessa
+https://www.baeldung.com/cs/levenshtein-distance-computation  
+http://fuzzy-string.com/Compare/  
+https://youtu.be/AY2DZ4a9gyk  
+https://blog.paperspace.com/implementing-levenshtein-distance-word-autocomplete-autocorrect/
