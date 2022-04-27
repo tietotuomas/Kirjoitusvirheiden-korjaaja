@@ -8,6 +8,19 @@ Sovelluksen ensisijainen käyttötarkoitus on kirjoitusvirheiden korjaus. Sovell
 
 Sovellus on toteuttu **Pythonilla** ja riippuvuuksien hallinta **Poetrylla**. Sovelluksen toiminta perustuu [trie-tietorakenteen](https://en.wikipedia.org/wiki/Trie) ja [Damerau–Levenshtein -etäisyyden](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance) hyödyntämiseen. 
 
+Sovelluksen käyttöliittymä, sovelluslogiikka ja tallennuslogiikka on eriyetty kerrosarkkitehtuurin hengessä omiksi kokonaisuuksikseen. Sovelluksen hakemistorakenne on seuraavalainen:
+
+
+[Ui.py](/src/ui/ui.py) sisältää sovelluksen tekstipohjaisen käyttöliittymän.   
+[Vocabulary_service.py](/src/services/vocabulary_service.py):n Sanastopalvelu-luokka yhdistää käyttöliittymän tietorakenteisiin/algoritmeihin ja sisältää logiikkaa merkkijonojen korjaamiseen ja oikeellisuuden tarkastamiseen.  
+[Damerau_levenshtein.py](/src/services/damerau_levenshtein.py) sisältää Damerau-Levenshteinin etäisyyteen mittaamisen pohjautuvat algoritmit.  
+[Trie.py:n](/src/datastructures/trie.py) TrieSolmu-luokka mallintaa Trie-tietorakenteen (puun) solmua. Ensimmäinen solmu toimii puun juurena.
+[Index.py](/src/index.py)-tiedosto käynnistää sovelluksen ja sisältää riippuvuuksien injektoinnit.  
+
+Vocabulary-kansiossa löytyy sovelluksen ensisijaisesti käyttämä [sanasto](/src/vocabulary/modified_wiktionary.txt), testien käyttämiä sanastoja sekä muita sanastoja, joita on hyödynnetty ensisijaisen sanaston rakentamisessa.
+
+[Trie_performance_testing.py](/src/datastructures/trie_performance_testing.py) sisältää erikseen käynnistettävän suorituskyktestin trie-tietorakenteelle. Yksikkötestien hakemistorakenne mukailee sovelluksen rakennetta, käyttöliittymä ei testata.
+
 ### Sanaston luominen
 
 Sovellus käyttää ensisijaisesti [Lexipedian](https://en.lexipedia.org/) Wikipedian artikkeleista koostamaa sanastoa. Lexipedian sanasto on järjestetty sen mukaan, kuinka usein sana on esiintynyt Wikipedian artikkeleissa. Useimmin esiintyvät sanat esiintyvät listassa ensimmäisenä. Latasin sovelluksen käyttöön 200 000 yleisintä, enintään 25 merkin pituista sanaa. Typistin Pythonin avulla sanastosta pois Lexipedian numeeriset tiedot sanan esiintyvyydestä ym. informaatiosta, ja karsin lisäksi sanoista muut kuin englannin kielisiä kirjaimia tai numeroita sisältävät sanat:  
@@ -39,7 +52,7 @@ Kirjoitusvirheen korjaustoiminto toimii seuraavalla tavalla:
 Aluksi Sanastopalvelun [tarkista_teksti](/src/services/vocabulary_service.py) tarkistaa käyttäjän syötteen sana kerrallaan. Metodi tarkistaa, löytyykö sana Trie-tietorakenteesta kutsumalla TrieSolmun [onko_sana_olemassa](/src/datastructures/trie.py) -metodia. Jos sanastosta ei löydy jotain sanaa, kutsuu [tarkista_teksti](/src/services/vocabulary_service.py) saman luokan [korjaa_sana](/src/services/vocabulary_service.py) -metodia, joka kutsuu puolestaan DamerauLevenshtein-luokan [etsi_korjaukset](/src/services/damerau_levenshtein.py) -algoritmia. [Etsi_korjaukset](/src/services/damerau_levenshtein.py) etsii [etsi_rekursiivisesti](/src/services/damerau_levenshtein.py)-metodia kutsuen (Trie-tietorakennetta ja Damerau-Levenshtein -etäisyyttä hyödyntäen) sanalle korjausehdotuksia, jotka lisätään [korjaa_sana](/src/services/vocabulary_service.py)-metodille palautettavaan listaan. Korjausehdotuksia karsitaan pitämällä kirjaa korjausehdotus-listan pienimmästä edintointietäisyydestä. Lopuksi [korjaa_sana](/src/services/vocabulary_service.py) valitsee korjausehdotuksista sen sanan, jolla on pienin editointietäisyys ja toissijaisesti pienin sijoitus. 
 
 ## Saavutetut aika- ja tilavaativuudet 
-[Trie-tietorakenteen]((/src/datastructures/trie.py) aika- ja tilavaativuudet ovat luokkaa **O(n)**. Damerau-Levenshteinin etäisyyttä hyödyntävän [etsi_korjaukset](/src/services/damerau_levenshtein.py) + [etsi_rekursiivisesti](/src/services/damerau_levenshtein.py) -algoritmin aika- ja tilavaativuudet ovat luokkaa **O(mn)**, jossa n on korjattavan sanan pituus ja m solmujen määrä Trie-tietorakenteessa. Tästä johtuen sovellus hidastelee erityisesti pitkien korjattavien sanojen kohdalla, ja toisaalta sovellusta on "helppo" nopeuttaa sanastoa (eli solmujen määrää) karsimalla. Sovelluksen nykyisessä versiossa Trie-tietorakenteeseen luodaan **237638** solmua, jotka sisältävät **96152** sanaa.
+[Trie-tietorakenteen](/src/datastructures/trie.py) aika- ja tilavaativuudet ovat luokkaa **O(n)**. Damerau-Levenshteinin etäisyyttä hyödyntävän [etsi_korjaukset](/src/services/damerau_levenshtein.py) + [etsi_rekursiivisesti](/src/services/damerau_levenshtein.py) -algoritmin aika- ja tilavaativuudet ovat luokkaa **O(mn)**, jossa n on korjattavan sanan pituus ja m solmujen määrä Trie-tietorakenteessa. Tästä johtuen sovellus hidastelee erityisesti pitkien korjattavien sanojen kohdalla, ja toisaalta sovellusta on "helppo" nopeuttaa sanastoa (eli solmujen määrää) karsimalla. Sovelluksen nykyisessä versiossa Trie-tietorakenteeseen luodaan **237638** solmua, jotka sisältävät **96152** sanaa.
 
 
 ## Parannuskohteet
