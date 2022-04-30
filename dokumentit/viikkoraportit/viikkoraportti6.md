@@ -1,5 +1,5 @@
 ## Viikko 6
-Käytetyt tunnit: 11 (ml. vertaisarviointiin käytetyt noin 0 tuntia)
+Käytetyt tunnit: 14,5 (ml. vertaisarviointiin käytetyt noin 3,5 tuntia)
 
 Parantelin sanastoa edelleen tarkoituksenmukaisemmaksi, karsin harvinaisia sanoja ja lyhenteitä pois. Vertaispalautteen pohjalta kiinnitin erityistä huomiota lyhyempien sanojen karsimiseen. Tästä lisää toteutusdokumentissa. Sovellus toimii nyt nopeammin ja antaa parempia tuloksia. 
 
@@ -17,7 +17,8 @@ Github kyllä ajoi pylintin ja antoi oikeanlaisen staattisen analyysin arvosanoi
 Ihan kaikkea tälle viikolle alunperin suunnittelemaani en ehtiny tehdä, sanaston parantelua en tosin ollut sunnitellut tekeväni tällä viikolla. Loppukurssin ajaksi on vielä seuraavanlaista tehtävää sunnilleen tässä tärkeysjärjestyksessä:  
 -damerau_levenshtein.py -tiedoston #-kommentit docstring-muotoon  
 -testejä, erityisesti Damerau-Levenshteinin-luokan testausta: testejä, joissa ainakin osassa trie-riippuvuus Mock-kirjastolla eliminoituna  
--testausdokumentaation & käyttöohjeen parantelu  
--mahdollisesti korjaustoiminnon/sanaston hiontaa
+-testausdokumentaation & käyttöohjeen parantelu (toteutusdokumentti jo aika lailla valmis)  
+-korjaustoiminnon/sanaston hiontaa
+-suoritusykykytestauksen hiontaa
 
 Loppudemonkin suunnitteluun kannattanee varata tunti tai pari aikaa. Jos aikaa silti jää, niin parantelen vielä sovelluksen toissijaista toimintoa eli kahden merkkijonon välistä Levenshteinin etäisyyden laskentaa (ainakin ilmoittamalla samassa yhteydessä myös Damerau-Levehnshteinin etäisyyden ja poistamalla numpy-riippuvuuden).
