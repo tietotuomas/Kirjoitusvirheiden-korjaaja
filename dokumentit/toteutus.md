@@ -19,9 +19,9 @@ Sovelluksen käyttöliittymä, sovelluslogiikka ja tallennuslogiikka on eriyetty
 [Trie.py:n](/src/datastructures/trie.py) TrieSolmu-luokka mallintaa Trie-tietorakenteen (puun) solmua. Ensimmäinen solmu toimii puun juurena.
 [Index.py](/src/index.py)-tiedosto käynnistää sovelluksen ja sisältää riippuvuuksien injektoinnit.  
 
-Vocabulary-kansiossa löytyy sovelluksen ensisijaisesti käyttämä [sanasto](/src/vocabulary/modified_wiktionary.txt), testien käyttämiä sanastoja sekä muita sanastoja, joita on hyödynnetty ensisijaisen sanaston rakentamisessa.
+Vocabulary-kansiosta löytyy sovelluksen ensisijaisesti käyttämä [sanasto](/src/vocabulary/modified_wiktionary.txt), testien käyttämiä sanastoja sekä muita sanastoja, joita on hyödynnetty ensisijaisen sanaston rakentamisessa.
 
-[Trie_performance_testing.py](/src/datastructures/trie_performance_testing.py) sisältää erikseen käynnistettävän suorituskyktestin trie-tietorakenteelle. Yksikkötestien hakemistorakenne mukailee sovelluksen rakennetta, käyttöliittymä ei testata.
+[Trie_performance_testing.py](/src/datastructures/trie_performance_testing.py) sisältää erikseen käynnistettävän suorituskyktestin trie-tietorakenteelle. Yksikkötestien hakemistorakenne mukailee sovelluksen rakennetta, käyttöliittymää ei testata.
 
 ### Sanaston luominen
 
