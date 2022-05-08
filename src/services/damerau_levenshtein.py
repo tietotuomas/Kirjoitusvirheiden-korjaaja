@@ -1,45 +1,70 @@
-import numpy
-
-
 class DamerauLevenshtein:
 
-    # laskee kahden sanan välisen levenstheinin etäisyyden
+    def luo_matriisi(self, sarakkeet: int, rivit: int):
+        matriisi = []
+
+        for rivi in range(rivit):
+            matriisi.append([])
+            for sarake in range(sarakkeet):
+                if rivi == 0:
+                    matriisi[rivi].append(sarake)
+                elif sarake == 0:
+                    matriisi[rivi].append(rivi)
+                else:
+                    matriisi[rivi].append(0)
+        return matriisi
+
+    def tulosta_matriisi(self, matriisi):
+        for rivi in range(len(matriisi)):
+            for sarake in range(len(matriisi[rivi])):
+                print(matriisi[rivi][sarake], end=" ")
+            print("")
+
     def levenstheinin_etaisyys(self, oikea_sana: str, tarkistettava_sana: str):
 
-        oikea_sana_listana = list(oikea_sana)
-        tarkistettava_sana_listana = list(tarkistettava_sana)
-        # luodaan matriisi etäisyyden laskemista varten)
-        matriisi = numpy.zeros((len(tarkistettava_sana)+1, len(oikea_sana)+1))
-        # ensimmäinen rivi täytetään oikean sanan+1 pituusindekseillä
-        matriisi[0] = list(range(len(oikea_sana_listana) + 1))
-        # ensimmäinen sarake täytetään tarkistettavan sanan+1 pituusindekseillä
-        matriisi[:, 0] = list(range(len(tarkistettava_sana_listana) + 1))
+        matriisi = self.luo_matriisi(
+            len(oikea_sana)+1, len(tarkistettava_sana)+1)
 
-        for sarake in range(1, len(oikea_sana_listana)+1):
-            for rivi in range(1, len(tarkistettava_sana_listana)+1):
+        for rivi in range(1, len(tarkistettava_sana)+1):
+            for sarake in range(1, len(oikea_sana)+1):
                 # jos kirjaimet eivät ole samoja, kopioidaan iteroitavaan soluun pienin arvo
                 # "ylemmästä", "vasemmasta" tai "vinottain vasemalla" olevasta solusta
                 # ja lisätään siihen 1
-                if oikea_sana_listana[sarake-1] != tarkistettava_sana_listana[rivi-1]:
-                    matriisi[rivi, sarake] = min(
-                        matriisi[rivi-1, sarake],
-                        matriisi[rivi, sarake-1],
-                        matriisi[rivi-1, sarake-1]) + 1
+                # print(oikea_sana[sarake-1], tarkistettava_sana[rivi-1], rivi, sarake)
+                if oikea_sana[sarake-1] != tarkistettava_sana[rivi-1]:
+                    matriisi[rivi][sarake] = min(
+                        matriisi[rivi-1][sarake],
+                        matriisi[rivi][sarake-1]) + 1
                 # jos kirjaimet ovat samoja, kopioidaan matriisissa vinoittain vasemmalla oleva luku
                 else:
-                    matriisi[rivi, sarake] = matriisi[rivi-1, sarake-1]
+                    matriisi[rivi][sarake] = matriisi[rivi-1][sarake-1]
+                # self.tulosta_matriisi(matriisi)
+                # print("")
 
-        # palautetaan matriisin oikean alakulman arvo, joka on siis sanojen pienin editointietäisyys
-        return int(matriisi[len(tarkistettava_sana)][len(oikea_sana)])
+                if rivi-1 > 0 and sarake-1 > 0 and tarkistettava_sana[rivi-1] == oikea_sana[sarake-2]\
+                        and tarkistettava_sana[rivi-2] == oikea_sana[sarake-1]\
+                and oikea_sana[sarake-1] != tarkistettava_sana[rivi-1]:
+                    matriisi[rivi][sarake] = min(
+                        matriisi[rivi][sarake], matriisi[rivi-2][sarake-2]+1)
+                    print(tarkistettava_sana[rivi-1], oikea_sana[sarake-2])
+                    print(tarkistettava_sana[rivi-2], oikea_sana[sarake-1])
+                    #     and edellinen_kirjain == sana[sarake-1] and sana[sarake-1] != kirjain:
+                    # nykyinen_rivi[sarake] = min(
+                    #     nykyinen_rivi[sarake], toissa_rivi[sarake-2] + 1)
+
+        # # palautetaan matriisin oikean alakulman arvo, joka on siis sanojen pienin editointietäisyys
+        self.tulosta_matriisi(matriisi)
+        return matriisi[len(tarkistettava_sana)][len(oikea_sana)]
 
     # Etsii virheelliselle sanalle Damerau-Levenshtein -etäisyyksiä käymällä koko Trie-puun läpi
+
     def etsi_korjaukset(self, trie, sana):
 
         # ensimmäinen rivi täytetään oikean sanan+1 pituusindekseillä
         nykyinen_rivi = range(len(sana) + 1)
-        #alustetaan pienimmäksi Damerau-Levenshtein -etäisyydeksi 5
+        # alustetaan pienimmäksi Damerau-Levenshtein -etäisyydeksi 5
         pienin = 5
-        #luodaan tyhjä tuloslista
+        # luodaan tyhjä tuloslista
         tulos = []
 
         # käydään läpi kaikki Trie-puuhun tallennetut kirjaimet/haarat
@@ -96,48 +121,8 @@ class DamerauLevenshtein:
                                       edellinen_kirjain, sana, nykyinen_rivi,
                                       edellinen_rivi, tulos, pienin)
 
-    # maksimi_etäisyyttä hyödyntävä variaatio,
-    # joka ei välttämättä toimi oikein
-    # ja joka ei sisällä transpoosia eli Damerau-osuutta
 
-    # def etsi_korjaukset_max(self, trie, sana, maksimi_etaisyys):
-    #     # Etsii virheelliselle sanalle todennäköisimmät vaihtoehdot
-    #       editointietäisyyden perusteella
+if __name__ == '__main__':
+    d = DamerauLevenshtein()
 
-    #     # ensimmäinen rivi täytetään oikean sanan+1 pituusindekseillä
-    #     nykyinen_rivi = range(len(sana) + 1)
-
-    #     tulos = []
-
-    #     for kirjain in trie.lapset:
-
-    #         self.etsi_rekursiivisesti(trie.lapset[kirjain], kirjain, sana, nykyinen_rivi,
-    #                                   tulos, maksimi_etaisyys)
-
-    #     return tulos
-
-    # def etsi_rekursiivisesti_max(self, solmu, kirjain, sana, edellinen_rivi, tulos, maksimi_etaisyys):
-
-    #     sarakkeet = len(sana) + 1
-    #     nykyinen_rivi = [edellinen_rivi[0] + 1]
-
-    #     for sarake in range(1, sarakkeet):
-
-    #         lisays_hinta = nykyinen_rivi[sarake - 1] + 1
-    #         poisto_hinta = edellinen_rivi[sarake] + 1
-    #         # transpoosiHinta ?
-
-    #         if sana[sarake - 1] != kirjain:
-    #             vaihto_hinta = edellinen_rivi[sarake - 1] + 1
-    #         else:
-    #             vaihto_hinta = edellinen_rivi[sarake - 1]
-
-    #         nykyinen_rivi.append(min(lisays_hinta, poisto_hinta, vaihto_hinta))
-
-    #     if nykyinen_rivi[-1] <= maksimi_etaisyys and solmu.sana is not None:
-    #         tulos.append((solmu.sana, nykyinen_rivi[-1]))
-
-    #     if min(nykyinen_rivi) <= maksimi_etaisyys:
-    #         for kirjain in solmu.lapset:
-    #             self.etsi_rekursiivisesti(solmu.lapset[kirjain], kirjain, sana, nykyinen_rivi,
-    #                                       tulos, maksimi_etaisyys)
+    print(d.levenstheinin_etaisyys("afntsatci", "fantastic"))
