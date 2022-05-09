@@ -1,5 +1,5 @@
 class UI:
-    """Tekstikäyttöliittymä 
+    """Tekstikäyttöliittymä
     """
 
     def __init__(self, sanastopalvelu):
@@ -69,28 +69,33 @@ class UI:
     def _lue_merkkijonot(self):
         ensimmainen_sana = input(self.ENSIMMAINEN_MERKKIJONO)
         toinen_sana = input(self.TOINEN_MERKKIJONO)
-        print("")
         damerau_levenshtein, levenshtein = self.sanastopalvelu.laske_editointietaisyys(
             ensimmainen_sana, toinen_sana)
 
-        self._tulosta_matriisi(levenshtein)
+        self._tulosta_matriisi(levenshtein, False)
+        self._tulosta_matriisi(damerau_levenshtein, True)
+
+        print(self.DAMERAU_LEVENSHTEIN.format(ensimmainen_sana=ensimmainen_sana, toinen_sana=toinen_sana),
+              damerau_levenshtein[len(toinen_sana)][len(ensimmainen_sana)])
         print(self.LEVENSHTEIN.format(ensimmainen_sana=ensimmainen_sana, toinen_sana=toinen_sana),
               levenshtein[len(toinen_sana)][len(ensimmainen_sana)])
         print("")
-        self._tulosta_matriisi(damerau_levenshtein)
-        print(self.DAMERAU_LEVENSHTEIN.format(ensimmainen_sana=ensimmainen_sana, toinen_sana=toinen_sana),
-              damerau_levenshtein[len(toinen_sana)][len(ensimmainen_sana)])
-        print("")
 
-    def _tulosta_matriisi(self, matriisi):
+    def _tulosta_matriisi(self, matriisi, onko_damearau):
         vali = " "
         for lista in matriisi:
             for numero in lista:
                 if numero > 9:
                     vali = "  "
                     break
+        print("")
         for rivi in range(len(matriisi)):
             for sarake in range(len(matriisi[rivi])):
                 print(matriisi[rivi][sarake], end=vali)
+            if len(matriisi) // 2 == rivi:
+                if onko_damearau:
+                    print(" "*10, "Damerau-Levenshtein matriisi", end="")
+                else:
+                    print(" "*10, "Levenshtein matriisi", end="")
             print("")
         print("")
