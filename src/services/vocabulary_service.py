@@ -56,6 +56,7 @@ class Sanastopalvelu:
         """
         ehdotukset = self.dameraulevenshtein.etsi_korjaukset(
             self.trie, korjattava_sana)
+
         if ehdotukset:
             korjattava_sana = min(ehdotukset, key=lambda t: (t[1], t[2]))[0]
         return korjattava_sana
@@ -103,6 +104,9 @@ class Sanastopalvelu:
             F-merkkijonon, joka sisältää käyttäjän syöttämät merkkijonot
             ja niiden editointietäisyyden.
         """
-        etaisyys = self.dameraulevenshtein.levenstheinin_etaisyys(
+        damerau_levenshtein = self.dameraulevenshtein.laske_damerau_levensthein_etaisyys(
             ensimmainen_mjono, toinen_mjono)
-        return f"Merkkijonojen {ensimmainen_mjono} ja {toinen_mjono} välinen editointietäisyys on {etaisyys}"
+        levenshtein = self.dameraulevenshtein.laske_levensthein_etaisyys(
+            ensimmainen_mjono, toinen_mjono)
+        
+        return damerau_levenshtein, levenshtein

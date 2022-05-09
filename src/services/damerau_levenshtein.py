@@ -14,14 +14,32 @@ class DamerauLevenshtein:
                     matriisi[rivi].append(0)
         return matriisi
 
-    def tulosta_matriisi(self, matriisi):
-        for rivi in range(len(matriisi)):
-            for sarake in range(len(matriisi[rivi])):
-                print(matriisi[rivi][sarake], end=" ")
-            print("")
 
-    def levenstheinin_etaisyys(self, oikea_sana: str, tarkistettava_sana: str):
+    def laske_levensthein_etaisyys(self, oikea_sana: str, tarkistettava_sana: str):
 
+        matriisi = self.luo_matriisi(
+            len(oikea_sana)+1, len(tarkistettava_sana)+1)
+
+        for rivi in range(1, len(tarkistettava_sana)+1):
+            for sarake in range(1, len(oikea_sana)+1):
+                # jos kirjaimet eivät ole samoja, kopioidaan iteroitavaan soluun pienin arvo
+                # "ylemmästä", "vasemmasta" tai "vinottain vasemalla" olevasta solusta
+                # ja lisätään siihen 1
+                # print(oikea_sana[sarake-1], tarkistettava_sana[rivi-1], rivi, sarake)
+                if oikea_sana[sarake-1] != tarkistettava_sana[rivi-1]:
+                    matriisi[rivi][sarake] = min(
+                        matriisi[rivi-1][sarake],
+                        matriisi[rivi][sarake-1]) + 1
+                # jos kirjaimet ovat samoja, kopioidaan matriisissa vinoittain vasemmalla oleva luku
+                else:
+                    matriisi[rivi][sarake] = matriisi[rivi-1][sarake-1]
+
+
+        # # palautetaan matriisin oikean alakulman arvo, joka on siis sanojen pienin editointietäisyys
+       
+        return matriisi
+
+    def laske_damerau_levensthein_etaisyys(self, oikea_sana: str, tarkistettava_sana: str):
         matriisi = self.luo_matriisi(
             len(oikea_sana)+1, len(tarkistettava_sana)+1)
 
@@ -43,21 +61,19 @@ class DamerauLevenshtein:
 
                 if rivi-1 > 0 and sarake-1 > 0 and tarkistettava_sana[rivi-1] == oikea_sana[sarake-2]\
                         and tarkistettava_sana[rivi-2] == oikea_sana[sarake-1]\
-                and oikea_sana[sarake-1] != tarkistettava_sana[rivi-1]:
+                    and oikea_sana[sarake-1] != tarkistettava_sana[rivi-1]:
                     matriisi[rivi][sarake] = min(
                         matriisi[rivi][sarake], matriisi[rivi-2][sarake-2]+1)
-                    print(tarkistettava_sana[rivi-1], oikea_sana[sarake-2])
-                    print(tarkistettava_sana[rivi-2], oikea_sana[sarake-1])
+
                     #     and edellinen_kirjain == sana[sarake-1] and sana[sarake-1] != kirjain:
                     # nykyinen_rivi[sarake] = min(
                     #     nykyinen_rivi[sarake], toissa_rivi[sarake-2] + 1)
 
         # # palautetaan matriisin oikean alakulman arvo, joka on siis sanojen pienin editointietäisyys
-        self.tulosta_matriisi(matriisi)
-        return matriisi[len(tarkistettava_sana)][len(oikea_sana)]
+        
+        return matriisi
 
-    # Etsii virheelliselle sanalle Damerau-Levenshtein -etäisyyksiä käymällä koko Trie-puun läpi
-
+        # Etsii virheelliselle sanalle Damerau-Levenshtein -etäisyyksiä käymällä koko Trie-puun läpi
     def etsi_korjaukset(self, trie, sana):
 
         # ensimmäinen rivi täytetään oikean sanan+1 pituusindekseillä
