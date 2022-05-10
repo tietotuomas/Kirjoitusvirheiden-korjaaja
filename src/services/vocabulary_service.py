@@ -93,16 +93,18 @@ class Sanastopalvelu:
 
     def laske_editointietaisyys(self, ensimmainen_mjono: str, toinen_mjono: str):
         """
-        Kutsuu dameraulevenshtein-luokan levenstheinin_etaisyys -metodia,
-        joka palauttaa merkkijonojen välisen editointietäisyyden.
+        Kutsuu DamerauLevenshtein-luokan laske_levensthein_etaisyys- ja 
+        laske_damerau_levensthein_etaisyys-metodia. Metodit palauttavat 
+        kaksiulotteiset listat (matriisit). Matriisin viimeinen solu kertoo
+        editointietäisyyden.
 
         Args:
             ensimmainen_mjono: Käyttäjän syöttämä ensimmäinen merkkijono.
             toinen_mjono: Käyttäjän syöttämä toinen merkkijono.
 
         Returns:
-            F-merkkijonon, joka sisältää käyttäjän syöttämät merkkijonot
-            ja niiden editointietäisyyden.
+            Tuplen, joka sisältää DamerauLevenshtein-luokan rakentamat 
+            kaksiuloitteiset listat.
         """
         damerau_levenshtein = self.dameraulevenshtein.laske_damerau_levensthein_etaisyys(
             ensimmainen_mjono, toinen_mjono)
