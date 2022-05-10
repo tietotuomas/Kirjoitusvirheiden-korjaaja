@@ -16,7 +16,7 @@ Sovelluksen käyttöliittymä, sovelluslogiikka ja tallennuslogiikka on eriyetty
 [Ui.py](/src/ui/ui.py) sisältää sovelluksen tekstipohjaisen käyttöliittymän.   
 [Vocabulary_service.py](/src/services/vocabulary_service.py):n Sanastopalvelu-luokka yhdistää käyttöliittymän tietorakenteisiin/algoritmeihin ja sisältää logiikkaa merkkijonojen korjaamiseen ja oikeellisuuden tarkastamiseen.  
 [Damerau_levenshtein.py](/src/services/damerau_levenshtein.py) sisältää Damerau-Levenshteinin etäisyyteen mittaamisen pohjautuvat algoritmit.  
-[Trie.py:n](/src/datastructures/trie.py) TrieSolmu-luokka mallintaa Trie-tietorakenteen (puun) solmua. Ensimmäinen solmu toimii puun juurena.
+[Trie.py:n](/src/datastructures/trie.py) TrieSolmu-luokka mallintaa Trie-tietorakenteen (puun) solmua. Ensimmäinen solmu toimii puun juurena.  
 [Index.py](/src/index.py)-tiedosto käynnistää sovelluksen ja sisältää riippuvuuksien injektoinnit.  
 
 Vocabulary-kansiosta löytyy sovelluksen ensisijaisesti käyttämä [sanasto](/src/vocabulary/modified_wiktionary.txt), testien käyttämiä sanastoja sekä muita sanastoja, joita on hyödynnetty ensisijaisen sanaston rakentamisessa.
