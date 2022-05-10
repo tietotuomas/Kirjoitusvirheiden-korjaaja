@@ -104,7 +104,7 @@ class Sanastopalvelu:
 
         Returns:
             Tuplen, joka sisältää DamerauLevenshtein-luokan rakentamat 
-            kaksiuloitteiset listat.
+            kaksiuloitteiset listat (matriisit).
         """
         damerau_levenshtein = self.dameraulevenshtein.laske_damerau_levensthein_etaisyys(
             ensimmainen_mjono, toinen_mjono)
