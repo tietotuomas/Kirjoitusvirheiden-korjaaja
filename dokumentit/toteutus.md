@@ -16,7 +16,7 @@ Sovelluksen käyttöliittymä, sovelluslogiikka ja tallennuslogiikka on eriyetty
 [Ui.py](/src/ui/ui.py) sisältää sovelluksen tekstipohjaisen käyttöliittymän.   
 [Vocabulary_service.py](/src/services/vocabulary_service.py):n Sanastopalvelu-luokka yhdistää käyttöliittymän tietorakenteisiin/algoritmeihin ja sisältää logiikkaa merkkijonojen korjaamiseen ja oikeellisuuden tarkastamiseen.  
 [Damerau_levenshtein.py](/src/services/damerau_levenshtein.py) sisältää Damerau-Levenshteinin etäisyyteen mittaamisen pohjautuvat algoritmit.  
-[Trie.py:n](/src/datastructures/trie.py) TrieSolmu-luokka mallintaa Trie-tietorakenteen (puun) solmua. Ensimmäinen solmu toimii puun juurena.
+[Trie.py:n](/src/datastructures/trie.py) TrieSolmu-luokka mallintaa Trie-tietorakenteen (puun) solmua. Ensimmäinen solmu toimii puun juurena.  
 [Index.py](/src/index.py)-tiedosto käynnistää sovelluksen ja sisältää riippuvuuksien injektoinnit.  
 
 Vocabulary-kansiosta löytyy sovelluksen ensisijaisesti käyttämä [sanasto](/src/vocabulary/modified_wiktionary.txt), testien käyttämiä sanastoja sekä muita sanastoja, joita on hyödynnetty ensisijaisen sanaston rakentamisessa.
@@ -54,18 +54,20 @@ Kirjoitusvirheen korjaustoiminto toimii seuraavalla tavalla:
 Aluksi Sanastopalvelun [tarkista_teksti](/src/services/vocabulary_service.py) tarkistaa käyttäjän syötteen sana kerrallaan. Metodi tarkistaa, löytyykö sana Trie-tietorakenteesta kutsumalla TrieSolmun [onko_sana_olemassa](/src/datastructures/trie.py) -metodia. Jos sanastosta ei löydy jotain sanaa, kutsuu [tarkista_teksti](/src/services/vocabulary_service.py) saman luokan [korjaa_sana](/src/services/vocabulary_service.py) -metodia, joka kutsuu puolestaan DamerauLevenshtein-luokan [etsi_korjaukset](/src/services/damerau_levenshtein.py) -algoritmia. [Etsi_korjaukset](/src/services/damerau_levenshtein.py) etsii [etsi_rekursiivisesti](/src/services/damerau_levenshtein.py)-metodia kutsuen (Trie-tietorakennetta ja Damerau-Levenshtein -etäisyyttä hyödyntäen) sanalle korjausehdotuksia, jotka lisätään [korjaa_sana](/src/services/vocabulary_service.py)-metodille palautettavaan listaan. Korjausehdotuksia karsitaan pitämällä kirjaa korjausehdotus-listan pienimmästä edintointietäisyydestä. Lopuksi [korjaa_sana](/src/services/vocabulary_service.py) valitsee korjausehdotuksista sen sanan, jolla on pienin editointietäisyys ja toissijaisesti pienin sijoitus. 
 
 ## Saavutetut aika- ja tilavaativuudet 
-[Trie-tietorakenteen](/src/datastructures/trie.py) aika- ja tilavaativuudet ovat luokkaa **O(n)**. Damerau-Levenshteinin etäisyyttä hyödyntävän [etsi_korjaukset](/src/services/damerau_levenshtein.py) + [etsi_rekursiivisesti](/src/services/damerau_levenshtein.py) -algoritmin aika- ja tilavaativuudet ovat luokkaa **O(mn)**, jossa n on korjattavan sanan pituus ja m solmujen määrä Trie-tietorakenteessa. Tästä johtuen sovellus hidastelee erityisesti pitkien korjattavien sanojen kohdalla, ja toisaalta sovellusta on "helppo" nopeuttaa sanastoa (eli solmujen määrää) karsimalla. Sovelluksen nykyisessä versiossa Trie-tietorakenteeseen luodaan **237638** solmua, jotka sisältävät **96152** sanaa.
+[Trie-tietorakenteen](/src/datastructures/trie.py) aika- ja tilavaativuus on yhtä merkkijonoa käsitellessä luokkaa **O(n)**, jossa n on merkkijonon pituus. Koko sanaston lisääminen Trie-tietorakenteeseen on kuitenkin luokkaa **O(mn)**, jossa m on sanastojen sanojen lukumäärä ja n sanojen keskimääräinen pituus.  
+
+Damerau-Levenshteinin etäisyyttä hyödyntävän [etsi_korjaukset](/src/services/damerau_levenshtein.py) + [etsi_rekursiivisesti](/src/services/damerau_levenshtein.py) -algoritmin aika- ja tilavaativuus on luokkaa **O(mn)**, jossa n on korjattavan sanan pituus ja m solmujen määrä Trie-tietorakenteessa. Tästä johtuen sovellus hidastelee erityisesti pitkien korjattavien sanojen kohdalla, ja toisaalta sovellusta on "helppo" nopeuttaa sanastoa (eli solmujen määrää) karsimalla. Sovelluksen nykyisessä versiossa Trie-tietorakenteeseen luodaan noin **237 000** solmua, jotka sisältävät noin **96 000** sanaa.
 
 
 ## Parannuskohteet
 
 Sovellus käsittelee sanoja pienillä kirjaimilla, sovellus ei siis huomioi eroa pienten ja isojen kirjainten välillä. Lisäksi sovellus käsittelee pilkun ja pisteen osana sanaa, ja tulkitsee siis esim. lauseen perässä olevan kirjoitusvirheeksi.
 
-Sanan valintaa korjausehdotuslistasta voisi hienosäätää. Esimerkiksi joidenkin useasti esiintyvien (eli korkean sijoituksen) sanojen valinta olisi parempi/todennäköisempi vaihtoehto, vaikka tällaisen sanan editointietäisyys olisikin yksikön verran suurempi kuin jonkin toisen, harvinaisemman sanan editointietäisyys. Korjaustoimintoa voisi edelleen kehittää niin, että (esim. korjausehdotus-listasta sanaa valittaessa) sovellus tarkastelisi tyypillisimpiä kirjoitusvirheitä tai sitä, mitkä sanat esiintyvät useiten englanninkielisessä tekstissä yhdessä.
+Sanan valintaa korjausehdotuslistasta voisi hienosäätää. Esimerkiksi joidenkin useasti esiintyvien (eli pienen sijoituksen) sanojen valinta olisi parempi/todennäköisempi vaihtoehto, vaikka tällaisen sanan editointietäisyys olisikin yksikön verran suurempi kuin jonkin toisen, harvinaisemman sanan editointietäisyys. Korjaustoimintoa voisi edelleen kehittää niin, että (esim. korjausehdotus-listasta sanaa valittaessa) sovellus tarkastelisi tyypillisimpiä kirjoitusvirheitä tai sitä, mitkä sanat esiintyvät useiten englanninkielisessä tekstissä yhdessä.
 
 Kooditasolla parantamisen varaa voisi olla ainakin metodien yksi vastuu -periaatteen noudattamisessa. Jotkin metodit voisi jakaa moneen eri osaan. Toisaalta esimerkiksi melko pitkän [etsi_rekursiivisesti](/src/services/damerau_levenshtein.py)-metodin jakaminen osiin tuntuisi epäintuitiiviselta, vaikka mm. sanan lisäyksen tuloslistaan voisi hyvin eriyttää omaksi metodikseen.
 
-Sovellusta voisi myös nopeuttaa, erityisesti karsimalla harvinaisempia sanoja pois sanastosta mutta myös esimerkiksi tuloslistaan sanoja valittaessa.
+Sovellusta voisi myös nopeuttaa, erityisesti karsimalla harvinaisempia sanoja pois sanastosta. Pienen nopeusedun saisi myös integroimalla sanan valinnan [etsi_rekursiivisesti](/src/services/damerau_levenshtein.py)-metodiin niin, että sanaehdotuksia ei kerättäisi erilliseen tulostaulukoon vertailtavaksi.
 
 ### Lisää Damerau–Levenshtein -etäisyydestä ja sen hyödyntämisestä kirjoitusvirhedeiden korjaamisessa
 https://www.baeldung.com/cs/levenshtein-distance-computation  
