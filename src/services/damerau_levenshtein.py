@@ -14,7 +14,6 @@ class DamerauLevenshtein:
                     matriisi[rivi].append(0)
         return matriisi
 
-
     def laske_levensthein_etaisyys(self, oikea_sana: str, tarkistettava_sana: str):
 
         matriisi = self._luo_matriisi(
@@ -27,16 +26,15 @@ class DamerauLevenshtein:
                 # ja lisätään siihen 1
                 # print(oikea_sana[sarake-1], tarkistettava_sana[rivi-1], rivi, sarake)
                 if oikea_sana[sarake-1] != tarkistettava_sana[rivi-1]:
-                    matriisi[rivi][sarake] = min(
-                        matriisi[rivi-1][sarake],
-                        matriisi[rivi][sarake-1]) + 1
+                    matriisi[rivi][sarake] = min(matriisi[rivi-1][sarake-1],
+                                                 matriisi[rivi-1][sarake],
+                                                 matriisi[rivi][sarake-1]) + 1
                 # jos kirjaimet ovat samoja, kopioidaan matriisissa vinoittain vasemmalla oleva luku
                 else:
                     matriisi[rivi][sarake] = matriisi[rivi-1][sarake-1]
 
-
         # # palautetaan matriisin oikean alakulman arvo, joka on siis sanojen pienin editointietäisyys
-       
+
         return matriisi
 
     def laske_damerau_levensthein_etaisyys(self, oikea_sana: str, tarkistettava_sana: str):
@@ -50,9 +48,9 @@ class DamerauLevenshtein:
                 # ja lisätään siihen 1
                 # print(oikea_sana[sarake-1], tarkistettava_sana[rivi-1], rivi, sarake)
                 if oikea_sana[sarake-1] != tarkistettava_sana[rivi-1]:
-                    matriisi[rivi][sarake] = min(
-                        matriisi[rivi-1][sarake],
-                        matriisi[rivi][sarake-1]) + 1
+                    matriisi[rivi][sarake] = min(matriisi[rivi-1][sarake-1],
+                                                 matriisi[rivi-1][sarake],
+                                                 matriisi[rivi][sarake-1]) + 1
                 # jos kirjaimet ovat samoja, kopioidaan matriisissa vinoittain vasemmalla oleva luku
                 else:
                     matriisi[rivi][sarake] = matriisi[rivi-1][sarake-1]
@@ -61,7 +59,7 @@ class DamerauLevenshtein:
 
                 if rivi-1 > 0 and sarake-1 > 0 and tarkistettava_sana[rivi-1] == oikea_sana[sarake-2]\
                         and tarkistettava_sana[rivi-2] == oikea_sana[sarake-1]\
-                    and oikea_sana[sarake-1] != tarkistettava_sana[rivi-1]:
+                and oikea_sana[sarake-1] != tarkistettava_sana[rivi-1]:
                     matriisi[rivi][sarake] = min(
                         matriisi[rivi][sarake], matriisi[rivi-2][sarake-2]+1)
 
@@ -70,7 +68,7 @@ class DamerauLevenshtein:
                     #     nykyinen_rivi[sarake], toissa_rivi[sarake-2] + 1)
 
         # # palautetaan matriisin oikean alakulman arvo, joka on siis sanojen pienin editointietäisyys
-        
+
         return matriisi
 
         # Etsii virheelliselle sanalle Damerau-Levenshtein -etäisyyksiä käymällä koko Trie-puun läpi
@@ -86,7 +84,7 @@ class DamerauLevenshtein:
         # käydään läpi kaikki Trie-puuhun tallennetut kirjaimet/haarat
         for kirjain in trie.lapset:
             self._etsi_rekursiivisesti(trie.lapset[kirjain], kirjain, None,
-                                      sana, nykyinen_rivi, None, tulos, pienin)
+                                       sana, nykyinen_rivi, None, tulos, pienin)
         # palauttaa tulokset tuple-listana;
         # ensimmäinen alkio sisältää sanan,
         # toinen alkio Damerau-Levenshtein -etäisyyden,
@@ -94,7 +92,7 @@ class DamerauLevenshtein:
         return tulos
 
     def _etsi_rekursiivisesti(self, solmu, kirjain, edellinen_kirjain,
-                             sana, edellinen_rivi, toissa_rivi, tulos, pienin):
+                              sana, edellinen_rivi, toissa_rivi, tulos, pienin):
 
         sarakkeet = len(sana) + 1
         nykyinen_rivi = [edellinen_rivi[0] + 1]
@@ -134,11 +132,6 @@ class DamerauLevenshtein:
 
         for kirjain in solmu.lapset:
             self._etsi_rekursiivisesti(solmu.lapset[kirjain], kirjain,
-                                      edellinen_kirjain, sana, nykyinen_rivi,
-                                      edellinen_rivi, tulos, pienin)
+                                       edellinen_kirjain, sana, nykyinen_rivi,
+                                       edellinen_rivi, tulos, pienin)
 
-
-if __name__ == '__main__':
-    d = DamerauLevenshtein()
-
-    print(d.levenstheinin_etaisyys("afntsatci", "fantastic"))
