@@ -25,7 +25,7 @@ class UI:
     TOINEN_MERKKIJONO = "Syötä toinen merkkijono: "
     DAMERAU_LEVENSHTEIN = "Merkkijonojen {ensimmainen_sana} ja {toinen_sana} välinen Damerau-Levenshtein-etäisyys on"
     LEVENSHTEIN = "Merkkijonojen {ensimmainen_sana} ja {toinen_sana} välinen Levenshtein-etäisyys on"
-    LOPETUS_TEKSTI = "Sovellus sulkeutuu"
+    LOPETUS_TEKSTI = "\nSovellus sulkeutuu"
 
     def kaynnista(self):
 
@@ -54,7 +54,7 @@ class UI:
             print(self.INFO_TEKSTI)
             self.ohje = False
         teksti = input(self.KOMENNOT["1"]+": ")
-
+        print("")
         palaute = self.sanastopalvelu.tarkista_teksti(teksti)
         if palaute:
             print(self.KORJATTU_MJONO_TEKSTI)
@@ -75,10 +75,10 @@ class UI:
         self._tulosta_matriisi(levenshtein, False)
         self._tulosta_matriisi(damerau_levenshtein, True)
 
-        print(self.DAMERAU_LEVENSHTEIN.format(ensimmainen_sana=ensimmainen_sana, toinen_sana=toinen_sana),
-              damerau_levenshtein[len(toinen_sana)][len(ensimmainen_sana)])
         print(self.LEVENSHTEIN.format(ensimmainen_sana=ensimmainen_sana, toinen_sana=toinen_sana),
               levenshtein[len(toinen_sana)][len(ensimmainen_sana)])
+        print(self.DAMERAU_LEVENSHTEIN.format(ensimmainen_sana=ensimmainen_sana, toinen_sana=toinen_sana),
+              damerau_levenshtein[len(toinen_sana)][len(ensimmainen_sana)])
         print("")
 
     def _tulosta_matriisi(self, matriisi, onko_damearau):
