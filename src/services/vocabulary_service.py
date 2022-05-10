@@ -83,7 +83,11 @@ class Sanastopalvelu:
         while i < len(sanalista):
             if not self.trie.onko_sana_olemassa(sanalista[i]):
                 virheeton = False
-                korjattu_sanalista[i] = self.korjaa_sana(sanalista[i])
+                korjattu_sana = self.korjaa_sana(sanalista[i])
+                if korjattu_sana != sanalista[i]:
+                    korjattu_sanalista[i] = korjattu_sana
+                else:
+                    korjattu_sanalista[i] = korjattu_sana + "*"
                 sanalista[i] = sanalista[i] + "*"
 
             i += 1
@@ -110,5 +114,5 @@ class Sanastopalvelu:
             ensimmainen_mjono, toinen_mjono)
         levenshtein = self.dameraulevenshtein.laske_levensthein_etaisyys(
             ensimmainen_mjono, toinen_mjono)
-        
+
         return damerau_levenshtein, levenshtein
