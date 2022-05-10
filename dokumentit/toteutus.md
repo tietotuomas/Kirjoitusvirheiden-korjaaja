@@ -63,11 +63,11 @@ Damerau-Levenshteinin etäisyyttä hyödyntävän [etsi_korjaukset](/src/service
 
 Sovellus käsittelee sanoja pienillä kirjaimilla, sovellus ei siis huomioi eroa pienten ja isojen kirjainten välillä. Lisäksi sovellus käsittelee pilkun ja pisteen osana sanaa, ja tulkitsee siis esim. lauseen perässä olevan kirjoitusvirheeksi.
 
-Sanan valintaa korjausehdotuslistasta voisi hienosäätää. Esimerkiksi joidenkin useasti esiintyvien (eli korkean sijoituksen) sanojen valinta olisi parempi/todennäköisempi vaihtoehto, vaikka tällaisen sanan editointietäisyys olisikin yksikön verran suurempi kuin jonkin toisen, harvinaisemman sanan editointietäisyys. Korjaustoimintoa voisi edelleen kehittää niin, että (esim. korjausehdotus-listasta sanaa valittaessa) sovellus tarkastelisi tyypillisimpiä kirjoitusvirheitä tai sitä, mitkä sanat esiintyvät useiten englanninkielisessä tekstissä yhdessä.
+Sanan valintaa korjausehdotuslistasta voisi hienosäätää. Esimerkiksi joidenkin useasti esiintyvien (eli pienen sijoituksen) sanojen valinta olisi parempi/todennäköisempi vaihtoehto, vaikka tällaisen sanan editointietäisyys olisikin yksikön verran suurempi kuin jonkin toisen, harvinaisemman sanan editointietäisyys. Korjaustoimintoa voisi edelleen kehittää niin, että (esim. korjausehdotus-listasta sanaa valittaessa) sovellus tarkastelisi tyypillisimpiä kirjoitusvirheitä tai sitä, mitkä sanat esiintyvät useiten englanninkielisessä tekstissä yhdessä.
 
 Kooditasolla parantamisen varaa voisi olla ainakin metodien yksi vastuu -periaatteen noudattamisessa. Jotkin metodit voisi jakaa moneen eri osaan. Toisaalta esimerkiksi melko pitkän [etsi_rekursiivisesti](/src/services/damerau_levenshtein.py)-metodin jakaminen osiin tuntuisi epäintuitiiviselta, vaikka mm. sanan lisäyksen tuloslistaan voisi hyvin eriyttää omaksi metodikseen.
 
-Sovellusta voisi myös nopeuttaa, erityisesti karsimalla harvinaisempia sanoja pois sanastosta mutta myös esimerkiksi tuloslistaan sanoja valittaessa.
+Sovellusta voisi myös nopeuttaa, erityisesti karsimalla harvinaisempia sanoja pois sanastosta. Pienen nopeusedun saisi myös integroimalla sanan valinnan [etsi_rekursiivisesti](/src/services/damerau_levenshtein.py)-metodiin niin, että sanaehdotuksia ei kerättäisi erilliseen tulostaulukoon vertailtavaksi.
 
 ### Lisää Damerau–Levenshtein -etäisyydestä ja sen hyödyntämisestä kirjoitusvirhedeiden korjaamisessa
 https://www.baeldung.com/cs/levenshtein-distance-computation  
