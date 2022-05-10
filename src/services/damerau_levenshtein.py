@@ -1,6 +1,6 @@
 class DamerauLevenshtein:
 
-    def luo_matriisi(self, sarakkeet: int, rivit: int):
+    def _luo_matriisi(self, sarakkeet: int, rivit: int):
         matriisi = []
 
         for rivi in range(rivit):
@@ -17,7 +17,7 @@ class DamerauLevenshtein:
 
     def laske_levensthein_etaisyys(self, oikea_sana: str, tarkistettava_sana: str):
 
-        matriisi = self.luo_matriisi(
+        matriisi = self._luo_matriisi(
             len(oikea_sana)+1, len(tarkistettava_sana)+1)
 
         for rivi in range(1, len(tarkistettava_sana)+1):
@@ -40,7 +40,7 @@ class DamerauLevenshtein:
         return matriisi
 
     def laske_damerau_levensthein_etaisyys(self, oikea_sana: str, tarkistettava_sana: str):
-        matriisi = self.luo_matriisi(
+        matriisi = self._luo_matriisi(
             len(oikea_sana)+1, len(tarkistettava_sana)+1)
 
         for rivi in range(1, len(tarkistettava_sana)+1):
@@ -85,7 +85,7 @@ class DamerauLevenshtein:
 
         # käydään läpi kaikki Trie-puuhun tallennetut kirjaimet/haarat
         for kirjain in trie.lapset:
-            self.etsi_rekursiivisesti(trie.lapset[kirjain], kirjain, None,
+            self._etsi_rekursiivisesti(trie.lapset[kirjain], kirjain, None,
                                       sana, nykyinen_rivi, None, tulos, pienin)
         # palauttaa tulokset tuple-listana;
         # ensimmäinen alkio sisältää sanan,
@@ -93,7 +93,7 @@ class DamerauLevenshtein:
         # kolmas alkio sijoituksen
         return tulos
 
-    def etsi_rekursiivisesti(self, solmu, kirjain, edellinen_kirjain,
+    def _etsi_rekursiivisesti(self, solmu, kirjain, edellinen_kirjain,
                              sana, edellinen_rivi, toissa_rivi, tulos, pienin):
 
         sarakkeet = len(sana) + 1
@@ -133,7 +133,7 @@ class DamerauLevenshtein:
         edellinen_kirjain = kirjain
 
         for kirjain in solmu.lapset:
-            self.etsi_rekursiivisesti(solmu.lapset[kirjain], kirjain,
+            self._etsi_rekursiivisesti(solmu.lapset[kirjain], kirjain,
                                       edellinen_kirjain, sana, nykyinen_rivi,
                                       edellinen_rivi, tulos, pienin)
 
