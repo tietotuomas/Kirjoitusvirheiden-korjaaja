@@ -3,7 +3,29 @@ from services.damerau_levenshtein import DamerauLevenshtein
 from datastructures.trie import TrieSolmu
 
 
-class TestDamerauLevenshtein(unittest.TestCase):
+class TestDamerauLevenshteinDistances(unittest.TestCase):
+
+    def setUp(self):
+        self.dl = DamerauLevenshtein()
+
+    def test_levenstheinin_etaisyys_palauttaa_oikeita_editointietaisyyksia(self):
+        matriisi = self.dl.laske_damerau_levensthein_etaisyys("hello", "hello")
+        self.assertEqual(matriisi[-1][-1], 0)
+        matriisi = self.dl.laske_damerau_levensthein_etaisyys("world", "wolrd")
+        self.assertEqual(matriisi[-1][-1], 1)
+        matriisi = self.dl.laske_damerau_levensthein_etaisyys("yes", "yep")
+        self.assertEqual(matriisi[-1][-1], 1)
+        matriisi = self.dl.laske_damerau_levensthein_etaisyys("yes", "yse")
+        self.assertEqual(matriisi[-1][-1], 1)
+        matriisi = self.dl.laske_damerau_levensthein_etaisyys(
+            "afntsatci", "fantastic")
+        self.assertEqual(matriisi[-1][-1], 3)
+        matriisi = self.dl.laske_damerau_levensthein_etaisyys(
+            "engineer", "architecht")
+        self.assertEqual(matriisi[-1][-1], 8)
+
+
+class TestDamerauLevenshteinWithTrie(unittest.TestCase):
 
     def setUp(self):
         self.dl = DamerauLevenshtein()
@@ -14,12 +36,6 @@ class TestDamerauLevenshtein(unittest.TestCase):
         for sana in sanat:
             i += 1
             self.trie.lisaa_sana(sana, i)
-
-    def test_levenstheinin_etaisyys_palauttaa_oikeita_editointietaisyyksia(self):
-        self.assertEqual(self.dl.levenstheinin_etaisyys("word", "world"), 1)
-        self.assertEqual(self.dl.levenstheinin_etaisyys("yes", "yep"), 1)
-        self.assertEqual(self.dl.levenstheinin_etaisyys("yes", "yse"), 2)
-        self.assertEqual(self.dl.levenstheinin_etaisyys("engineer", "architecht"), 8)
 
     def test_etsi_korjaukset_palauttaa_listan(self):
         tulos = self.dl.etsi_korjaukset(self.trie, "word")
@@ -41,12 +57,11 @@ class TestDamerauLevenshtein(unittest.TestCase):
         self.assertIn(("no", 3, 2), tulos)
         self.assertIn(("yes", 1, 3), tulos)
         self.assertNotIn(("representational", 14, 8), tulos)
-    
+
     def test_etsi_korjaukset_palauttaa_oikean_editointietaisyyden_kun_tarvitaan_transpoosia(self):
-        tulos = self.dl.etsi_korjaukset(self.trie, "yse")
-        self.assertIn(("yes", 1, 3), tulos)
         # levenstheinin etaisyys (ei transpoosia) sanojen välillä on 2
-        self.assertEqual(self.dl.levenstheinin_etaisyys("yes", "yse"), 2)
-
-
-    
+        matriisi = self.dl.laske_levensthein_etaisyys("yes", "yse")
+        self.assertEqual(matriisi[-1][-1], 2)
+        tulos = self.dl.etsi_korjaukset(self.trie, "yse")
+        print(tulos)
+        self.assertIn(("yes", 1, 3), tulos)

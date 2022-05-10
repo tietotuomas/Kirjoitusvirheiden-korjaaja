@@ -70,10 +70,10 @@ class TestMockattuSanastoPalvelu(unittest.TestCase):
         self.assertEqual(
             self.dameraulevenshtein_mock.etsi_korjaukset.call_count, 1)
 
-    def test_laske_editointietaisyys_rakentaa_oikean_tulostuksen(self):
-        self.dameraulevenshtein_mock.levenstheinin_etaisyys.return_value = 1
-        merkkijono = self.sanastopalvelu.laske_editointietaisyys("world", "word")
-        self.assertEqual("Merkkijonojen world ja word välinen editointietäisyys on 1", merkkijono)
+    # def test_laske_editointietaisyys_rakentaa_oikean_tulostuksen(self):
+    #     self.dameraulevenshtein_mock.levenstheinin_etaisyys.return_value = 1
+    #     merkkijono = self.sanastopalvelu.laske_editointietaisyys("world", "word")
+    #     self.assertEqual("Merkkijonojen world ja word välinen editointietäisyys on 1", merkkijono)
 
 # Testataan sanastopalvelua oikeilla riippuvuuksilla, 
 # mutta käytetään rajattua testisanastoa lukematta sanasto-tiedostoa
