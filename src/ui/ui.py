@@ -69,7 +69,7 @@ class UI:
     def _lue_merkkijonot(self):
         ensimmainen_sana = input(self.ENSIMMAINEN_MERKKIJONO)
         toinen_sana = input(self.TOINEN_MERKKIJONO)
-        damerau_levenshtein, levenshtein = self.sanastopalvelu.laske_editointietaisyys(
+        damerau_levenshtein, levenshtein = self.sanastopalvelu.laske_editointietaisyydet(
             ensimmainen_sana, toinen_sana)
 
         self._tulosta_matriisi(levenshtein, False)

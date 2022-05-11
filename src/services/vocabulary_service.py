@@ -95,12 +95,11 @@ class Sanastopalvelu:
             return ""
         return f"{' '.join(sanalista)}\n\nTarkoititko:\n{' '.join(korjattu_sanalista)} ?\n"
 
-    def laske_editointietaisyys(self, ensimmainen_mjono: str, toinen_mjono: str):
+    def laske_editointietaisyydet(self, ensimmainen_mjono: str, toinen_mjono: str):
         """
         Kutsuu DamerauLevenshtein-luokan laske_levensthein_etaisyys- ja 
         laske_damerau_levensthein_etaisyys-metodia. Metodit palauttavat 
-        kaksiulotteiset listat (matriisit). Matriisin viimeinen solu kertoo
-        editointietäisyyden.
+        kaksiulotteiset taulukot. 
 
         Args:
             ensimmainen_mjono: Käyttäjän syöttämä ensimmäinen merkkijono.
@@ -108,7 +107,8 @@ class Sanastopalvelu:
 
         Returns:
             Tuplen, joka sisältää DamerauLevenshtein-luokan rakentamat 
-            kaksiuloitteiset listat (matriisit).
+            matriisit eli kaksiuloitteiset taulukot. Matriisien viimeiset 
+            solut kertovat editointietäisyydet.
         """
         damerau_levenshtein = self.dameraulevenshtein.laske_damerau_levensthein_etaisyys(
             ensimmainen_mjono, toinen_mjono)
