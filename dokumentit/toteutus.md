@@ -69,7 +69,7 @@ Kooditasolla parantamisen varaa voisi olla ainakin metodien yksi vastuu -periaat
 
 Sovellusta voisi myös nopeuttaa, erityisesti karsimalla harvinaisempia sanoja pois sanastosta. Pienen nopeusedun saisi myös integroimalla sanan valinnan [etsi_rekursiivisesti](/src/services/damerau_levenshtein.py)-metodiin niin, että sanaehdotuksia ei kerättäisi erilliseen tulostaulukoon vertailtavaksi.
 
-### Lisää Damerau–Levenshtein -etäisyydestä ja sen hyödyntämisestä kirjoitusvirhedeiden korjaamisessa
+### Lisää Damerau–Levenshtein -etäisyydestä ja sen hyödyntämisestä kirjoitusvirheiden korjaamisessa
 https://www.baeldung.com/cs/levenshtein-distance-computation  
 http://fuzzy-string.com/Compare/  
 https://youtu.be/AY2DZ4a9gyk  
