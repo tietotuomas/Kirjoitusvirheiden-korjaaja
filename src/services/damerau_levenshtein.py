@@ -1,6 +1,22 @@
 class DamerauLevenshtein:
+    """
+    Luokka tarjoaa toiminnallisuudet editointietäisyyksien laskemiseen
+    sekä virheellisen sanan korjausehdotusten. Toiminnallisuudet perustuvat
+    Damerau-Levenshtein -etäisyyden hyödyntämiseen.
+    """
 
     def _luo_matriisi(self, sarakkeet: int, rivit: int):
+        """
+        Luo "matriisin" eli kaksiuloitteisen taulukon.
+        Täyttää matriisin ensimmäisen vaakarivin ensimmäisen (oikean) sanan 
+        pituusindekseillä ja ensimmäisen pystyrivin toisen (tarkistettavan)
+        sanan pituusindekseillä. Alustaa muiden solujen arvoksi nolla.
+
+        Args:
+
+        Returns:
+
+        """
         matriisi = []
 
         for rivi in range(rivit):
