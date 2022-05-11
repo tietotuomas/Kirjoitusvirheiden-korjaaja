@@ -109,7 +109,7 @@ class TestSanastopalveluTarkistaTeksti(unittest.TestCase):
     def test_liikaa_sanaston_sanoista_eroavia_sanoja_ei_yritetä_korjata(self):
         self.assertEqual(self.sanastopalvelu.tarkista_teksti(
             "ylioppilastutkintotodistus ja ylioppilastutkintolautakunta"), 
-            "ylioppilastutkintotodistus* ja* ylioppilastutkintolautakunta*\n\nTarkoititko:\nylioppilastutkintotodistus ok ylioppilastutkintolautakunta ?\n")
+            "ylioppilastutkintotodistus* ja* ylioppilastutkintolautakunta*\n\nTarkoititko:\nylioppilastutkintotodistus* ok ylioppilastutkintolautakunta* ?\n")
 
 # Testataan sanastopalvelun sanaston lukua
 class TestSanastopalveluLueSanasto(unittest.TestCase):
