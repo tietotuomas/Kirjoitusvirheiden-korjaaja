@@ -7,7 +7,7 @@ class DamerauLevenshtein:
 
     def _luo_matriisi(self, sarakkeet: int, rivit: int):
         """
-        Luo "matriisin" eli kaksiuloitteisen taulukon, jonka koko on
+        Luo kaksiuloitteisen taulukon eli matriisin, jonka koko on
         (n+1) * (m+1), missä n ja m ovat merkkijonojen pituudet.
         Täyttää matriisin ensimmäisen vaakarivin ensimmäisen (oikean) sanan 
         pituusindekseillä+1 ja ensimmäisen pystyrivin toisen (tarkistettavan)
@@ -109,7 +109,7 @@ class DamerauLevenshtein:
 
                 if rivi-1 > 0 and sarake-1 > 0 and tarkistettava_sana[rivi-1] == oikea_sana[sarake-2]\
                         and tarkistettava_sana[rivi-2] == oikea_sana[sarake-1]\
-                and oikea_sana[sarake-1] != tarkistettava_sana[rivi-1]:
+                    and oikea_sana[sarake-1] != tarkistettava_sana[rivi-1]:
                     matriisi[rivi][sarake] = min(
                         matriisi[rivi][sarake], matriisi[rivi-2][sarake-2]+1)
 
@@ -117,8 +117,11 @@ class DamerauLevenshtein:
 
     def etsi_korjaukset(self, trie, sana):
         """
-        Etsii virheelliselle sanalle Damerau-Levenshtein -etäisyyksiä käymällä läpi Trie-puuhun
-        ladatun sanaston kutsumalla metodia etsi_rekursiivisesti.
+        Etsii virheellisille sanalle korjausehdotuksia. Laskee virheelliselle 
+        sanalle Damerau-Levenshtein -etäisyyksiä käymällä läpi Trie-puuhun
+        ladatun sanaston kutsumalla metodia etsi_rekursiivisesti. Alustaa matriisin
+        ensimmäisen rivin, tyhjän tulostaulukon ja muuttujan pienin (5), jota suurempia 
+        editointietäisyyden omaavia sanoja ei lisätä tulostaulukkoon.
 
         Args: 
             trie: TrieSolmu-luokkaan tallennettu sanasto.
@@ -128,8 +131,8 @@ class DamerauLevenshtein:
             Palauttaa korjausehdotukset kolmialkioisia tupleja 
             sisältävänä taulukkona:
             ensimmäinen alkio sisältää sanan eli itse korjausehdotuksen,
-            toinen alkio Damerau-Levenshtein -etäisyyden virheelliseen sanaan verrattuna
-            ja kolmas alkio sanan sijoituksen.
+            toinen alkio kertoo Damerau-Levenshtein -etäisyyden virheelliseen sanaan verrattuna,
+            kolmas alkio kertoo sanan sijoituksen.
         """
 
         nykyinen_rivi = range(len(sana) + 1)
@@ -146,14 +149,31 @@ class DamerauLevenshtein:
     def _etsi_rekursiivisesti(self, solmu, kirjain, edellinen_kirjain,
                               sana, edellinen_rivi, toissa_rivi, tulos, pienin):
         """
-        Etsii virheelliselle sanalle Damerau-Levenshtein -etäisyyksiä käymällä läpi Trie-puuhun
-        ladatun sanaston. Käy haarat rekursiivisesti läpi kutsumalla itseään.
+        Laskee virheelliselle sanalle Damerau-Levenshtein -etäisyyksiä käymällä läpi Trie-puuhun
+        ladatun sanaston kirjain tai merkki kerrallaan. Käy haarat rekursiivisesti läpi 
+        kutsumalla itseään.
+
+        Damerau-levensteinin etäisyyden mukaisesti tarkistettavat operaatiot ovat 
+        yhden merkin lisääminen, poistaminen, korvaaminen toisella merkillä tai kahden
+        vierekkäisen merkin paikan vaihtaminen.
+
+        Jos solmu sisältää sanan päättävän kirjaimen ja ko. sanan Damerau-Levenshtein -etäisyys on yhtä pieni
+        tai pienempi kuin tuloslistan pienin etäisyys (kuitenkin korkeintaan 5), lisätään sana tulostaulukkoon.
+
+        Args:
+            solmu: trie-puun solmu
+            kirjain: vertailuvuorossa oleva kirjain
+            edellinen_kirjain: edellisenä vuorossa ollut kirjain, siis trie-puussa nykyisen kirjaimen vanhempi
+            sana: virheellinen sana, johon sanaston sanoja verrataan
+            edellinen_rivi: matriisin edellinen, "ylempi" rivi
+            toissa_rivi: edellistä riviä edeltänyt rivi
+            tulos: tulostaulukko
+            pienin: kokonaisluku, joka pitää kirjaa tulostaulukon pienimmästä editointietäisyydestä
 
         """
 
         sarakkeet = len(sana) + 1
         nykyinen_rivi = [edellinen_rivi[0] + 1]
-
         for sarake in range(1, sarakkeet):
 
             lisays_hinta = nykyinen_rivi[sarake - 1] + 1
@@ -167,17 +187,11 @@ class DamerauLevenshtein:
 
             nykyinen_rivi.append(min(lisays_hinta, poisto_hinta, vaihto_hinta))
 
-            # Transpoosi eli Dameraus-osuuus - tarkistetaan,
-            # kannattaako vierekkäisten kirjaimien vaihto
             if edellinen_kirjain and sarake-1 > 0 and kirjain == sana[sarake-2]\
                     and edellinen_kirjain == sana[sarake-1] and sana[sarake-1] != kirjain:
                 nykyinen_rivi[sarake] = min(
                     nykyinen_rivi[sarake], toissa_rivi[sarake-2] + 1)
 
-        # Jos kirjain on sanan päättävä kirjain ja
-        # sanan pienin Damerau-Levenshtein -etäisyys on yhtä pieni
-        # tai pienempi kuin listan pienin etäisyys (korkeintaan 5),
-        # lisätään sana tuloksiin
         if solmu.sana is not None and nykyinen_rivi[-1] <= pienin:
             pienin = nykyinen_rivi[-1]
             tulos.append((solmu.sana, nykyinen_rivi[-1], solmu.sijoitus))
