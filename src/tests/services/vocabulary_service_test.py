@@ -5,6 +5,8 @@ from services.vocabulary_service import Sanastopalvelu
 from datastructures.trie import TrieSolmu
 
 # Testataan luokkaa eristetysti mockatuilla riippuvuuksilla
+
+
 class TestMockattuSanastoPalvelu(unittest.TestCase):
     def setUp(self):
         self.trie_mock = Mock()
@@ -70,13 +72,29 @@ class TestMockattuSanastoPalvelu(unittest.TestCase):
         self.assertEqual(
             self.dameraulevenshtein_mock.etsi_korjaukset.call_count, 1)
 
-    # def test_laske_editointietaisyys_rakentaa_oikean_tulostuksen(self):
-    #     self.dameraulevenshtein_mock.levenstheinin_etaisyys.return_value = 1
-    #     merkkijono = self.sanastopalvelu.laske_editointietaisyys("world", "word")
-    #     self.assertEqual("Merkkijonojen world ja word välinen editointietäisyys on 1", merkkijono)
+    def test_laske_editointietaisyydet_palauttaa_tuplen(self):
+        self.dameraulevenshtein_mock.laske_damerau_levensthein_etaisyys.return_value = [
+            [1, 2], [3, 4]]
+        self.dameraulevenshtein_mock.laske_levensthein_etaisyys.return_value = [
+            [1, 2], [3, 4]]
+        self.assertIsInstance(
+            self.sanastopalvelu.laske_editointietaisyydet("1", "2"), tuple)
 
-# Testataan sanastopalvelua oikeilla riippuvuuksilla, 
+    def test_laske_editointietaisyydet_kumpaakin_laskentametodia_kerran(self):
+        self.dameraulevenshtein_mock.laske_damerau_levensthein_etaisyys.return_value = [
+            [1, 2], [3, 4]]
+        self.dameraulevenshtein_mock.laske_levensthein_etaisyys.return_value = [
+            [1, 2], [3, 4]]
+        self.sanastopalvelu.laske_editointietaisyydet("1", "2")
+        self.assertEqual(
+            self.dameraulevenshtein_mock.laske_damerau_levensthein_etaisyys.call_count, 1)
+        self.assertEqual(
+            self.dameraulevenshtein_mock.laske_levensthein_etaisyys.call_count, 1)
+
+# Testataan sanastopalvelua oikeilla riippuvuuksilla,
 # mutta käytetään rajattua testisanastoa lukematta sanasto-tiedostoa
+
+
 class TestSanastopalveluTarkistaTeksti(unittest.TestCase):
 
     def setUp(self):
@@ -84,14 +102,14 @@ class TestSanastopalveluTarkistaTeksti(unittest.TestCase):
         self.trie = TrieSolmu()
         self.dl = DamerauLevenshtein()
         self.sanastopalvelu = Sanastopalvelu(self.trie, self.dl, self.sanasto)
-        
+
         sanat = ["ok", "no", "yes", "dirt", "dirty",
                  "dirtier", "dirtiest", "representational", "well-being"]
         i = 0
         for sana in sanat:
             i += 1
             self.sanastopalvelu.trie.lisaa_sana(sana, i)
-          
+
     def test_teksti_dirt_on_virheeton(self):
         self.assertEqual(self.sanastopalvelu.tarkista_teksti("dirt"), "")
 
@@ -108,10 +126,12 @@ class TestSanastopalveluTarkistaTeksti(unittest.TestCase):
 
     def test_liikaa_sanaston_sanoista_eroavia_sanoja_ei_yritetä_korjata(self):
         self.assertEqual(self.sanastopalvelu.tarkista_teksti(
-            "ylioppilastutkintotodistus ja ylioppilastutkintolautakunta"), 
+            "ylioppilastutkintotodistus ja ylioppilastutkintolautakunta"),
             "ylioppilastutkintotodistus* ja* ylioppilastutkintolautakunta*\n\nTarkoititko:\nylioppilastutkintotodistus* ok ylioppilastutkintolautakunta* ?\n")
 
 # Testataan sanastopalvelun sanaston lukua
+
+
 class TestSanastopalveluLueSanasto(unittest.TestCase):
     # classmethodin avulla sanasto luetaan vain kerran
     @classmethod
