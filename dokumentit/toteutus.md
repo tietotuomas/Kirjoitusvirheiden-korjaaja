@@ -66,7 +66,7 @@ Sanan valintaa korjausehdotuslistasta voisi hienosäätää. Esimerkiksi joidenk
 
 Kooditasolla parantamisen varaa voisi olla ainakin metodien yksi vastuu -periaatteen noudattamisessa. Jotkin metodit voisi jakaa moneen eri osaan. Toisaalta esimerkiksi melko pitkän [etsi_rekursiivisesti](/src/services/damerau_levenshtein.py)-metodin jakaminen osiin tuntuisi epäintuitiiviselta, vaikka mm. sanan lisäyksen tuloslistaan voisi hyvin eriyttää omaksi metodikseen.
 
-Sovellusta voisi myös nopeuttaa, erityisesti karsimalla harvinaisempia sanoja pois sanastosta. Pienen nopeusedun saisi myös integroimalla sanan valinnan [etsi_rekursiivisesti](/src/services/damerau_levenshtein.py)-metodiin niin, että sanaehdotuksia ei kerättäisi erilliseen tulostaulukoon vertailtavaksi.
+Sovellusta voisi myös nopeuttaa: Erityisesti karsimalla harvinaisempia sanoja pois sanastosta, ja ehkä myös niin, että korjausehdotuksia ei kerättäisi erilliseen tulostaulukoon vertailtavaksi.
 
 ### Lisää Damerau–Levenshtein -etäisyydestä ja sen hyödyntämisestä kirjoitusvirheiden korjaamisessa
 https://www.baeldung.com/cs/levenshtein-distance-computation  
