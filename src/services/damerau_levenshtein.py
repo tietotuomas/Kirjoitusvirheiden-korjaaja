@@ -167,7 +167,7 @@ class DamerauLevenshtein:
             sana: virheellinen sana, johon sanaston sanoja verrataan
             edellinen_rivi: matriisin edellinen, "ylempi" rivi
             toissa_rivi: edellistä riviä edeltänyt rivi
-            tulos: tulostaulukko
+            tulos: tulostaulukko, johon potentiaaliset korjausehdotukset lisätään tuplena (sana, etaisyys, sijoitus)
             pienin: kokonaisluku, joka pitää kirjaa tulostaulukon pienimmästä editointietäisyydestä
 
         """
