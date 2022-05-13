@@ -20,4 +20,5 @@ Koodin staattisen analyysin voit ajaa projektin juurikansiosta komennolla:
 ```
 poetry run pylint src
 ```
+Pylintin säännöt on määritelty [ohjelmistotekniikka-lähteen](https://github.com/ohjelmistotekniikka-hy/ohjelmistotekniikka-hy.github.io/blob/master/materiaali/python/.pylintrc) mukaisesti lukuunottamatta metodille sallittujen parametrien maksimimäärää (7 -> 9, [etsi_rekursiivisesti](/src/services/damerau_levenshtein.py)).
 
