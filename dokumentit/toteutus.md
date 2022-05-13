@@ -10,7 +10,7 @@ Sovellus on toteuttu **Pythonilla** ja riippuvuuksien hallinta **Poetrylla**. So
 
 Sovelluksen käyttöliittymä, sovelluslogiikka ja tallennuslogiikka on eriytetty kerrosarkkitehtuurin hengessä omiksi kokonaisuuksikseen. Sovelluksen hakemistorakenne on seuraavanlainen:
 
-![Hakemistorakenne](/dokumentit/hakemistorakenne.png)
+![Hakemistorakenne](/dokumentit/rakenne.png)
 
 
 [Ui.py](/src/ui/ui.py) sisältää sovelluksen tekstipohjaisen käyttöliittymän.   
