@@ -10,7 +10,13 @@ Tiedostot index.py ja trie_performance_testing.py sekä ui.py on rajattu testien
 
 ![Testikattavuus](/dokumentit/coverage.png)
 
-Raportti testikattavuudesta on rakennettu coverage-työkalun avulla. Lisää statistiikkaa [codevocissa](https://app.codecov.io/gh/tietotuomas/Kirjoitusvirheiden-korjaaja).
+Raportti testikattavuudesta on rakennettu coverage-työkalun avulla. Lisää statistiikkaa [codevocissa](https://app.codecov.io/gh/tietotuomas/Kirjoitusvirheiden-korjaaja).  
+
+Testit voi ajaa paikallisesti projektin juurikansiosta komennolla:
+
+```
+poetry run pytest src
+```
 
 ### Suorituskyky
 
@@ -23,4 +29,9 @@ Tuhannen yleisimmän sanan etsintä listan avulla: 0:00:02.525362
 Tuhannen yleisimmän sanan etsintä trie-puun avulla: 0:00:00.006210
 Tuhannen yleisimmän sanan ja tuhannen tietorakenteesta löytymättömän sanan etsintä listan avulla: 0:00:04.920071
 Tuhannen yleisimmän sanan ja tuhannen tietorakenteesta löytymättömän sanan etsintä trie-puun avulla: 0:00:00.008948
+```
+
+Suorituskykytestin voi ajaa projektin juurikansiosta komennolla:
+```
+poetry run python src/datastructures/trie_performance_testing.py
 ```
