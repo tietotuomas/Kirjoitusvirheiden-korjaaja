@@ -2,7 +2,9 @@
 
 ### Yksikkötestaus
 
-Projektin testaus on toteutettu Pythonin unittest-sovelluskehyksen avulla. Riippuvuuksia on pyritty tarvittaessa eliminoimaan Mock-kirjastolla. Testien hakemistorakenne jäljittelee sovelluksen rakennetta. Testit on toteutettu tiedostoille vocabulary_service.py, trie.py sekä damerau_levenshtein.py. 
+Projektin testaus on toteutettu Pythonin unittest-sovelluskehyksen avulla. Riippuvuuksia on tarvittaessa eliminoitu Mock-kirjastolla. Yksikkötestaus on pyritty toteuttamaan kattavasti mutta tarkoituksenmukaisesti, kuitenkin testaten myös ns. reunatapauksia ja vähemmän odotettuja syötteitä, kuten tyhjää merkkijonoa. Sanaehdotuksien oikeellisuutta on testattu käyttämällä taulukkomuodossa syötettyä, hyvin rajattua sanastoa. Editointietäisyyksiä on testattu erikseen mahdollisimman monipuolisilla syötteillä niin, että kaikkia sanapituuksia ja operaatioita (lisäys, poisto, vaihto, transpoosi) tulisi testattua tasaisesti. Olen tarkistanut useimpien testien editointietäisyyksien oikeellisuuden manuaalisesti, ja isommissa matriiseissa käyttänyt apuna [Damerau-Levenshtein-etäisyyden](http://fuzzy-string.com/) ja [Levenshtein-etäisyyden](https://planetcalc.com/1721/) laskemiseen tarkoitettuja web-sovelluksia.
+
+Testien hakemistorakenne jäljittelee sovelluksen rakennetta. Testit on toteutettu tiedostoille vocabulary_service.py, trie.py sekä damerau_levenshtein.py. 
 
 Tiedostot index.py ja trie_performance_testing.py sekä ui.py on rajattu testien ulkopuolelle. 
 
