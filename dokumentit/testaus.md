@@ -10,7 +10,7 @@ Tiedostot index.py ja trie_performance_testing.py sekä ui.py on rajattu testien
 
 ![Testikattavuus](/dokumentit/coverage.png)
 
-Raportti testikattavuudesta on rakennettu coverage-työkalun avulla.
+Raportti testikattavuudesta on rakennettu coverage-työkalun avulla. Lisää [statistiikkaa](https://app.codecov.io/gh/tietotuomas/Kirjoitusvirheiden-korjaaja).
 
 ### Suorituskyky
 
