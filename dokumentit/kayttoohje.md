@@ -24,7 +24,7 @@ Sovelluksen päätoiminnallisuus eli englanninkielisen tekstin kirjoitusvirheide
 ![Komento1](/dokumentit/komento1.png)
 
 Ensimmäisellä kerralla sovellus ohjeistaa käyttäjää välttämään pisteitä ja pilkkuja.  
-Sovellus pyytää käyttäjää syöttämään englannin kielisen tekstin.  
+Sovellus pyytää käyttäjää syöttämään englanninkielisen tekstin.  
 
 ![Korjaus](/dokumentit/korjaus.png)
 
@@ -34,7 +34,7 @@ Kahden merkkijonon välisen editointietäisyyden laskeminen valitaan komennolla 
 
 ![Komento2](/dokumentit/komento2.png)
 
-Sovellus pyytää käyttäjältä kaksi merkkijonoa. Kun käyttäjä on syöttänyt merkkijonot, laskee sovellus merkkijonjen välisen Levenshtein-etäisyyden ja Damerau-Levenshtein-etäisyyden. Sovellus tulostaa samassa yhteydessä lisäksi tulosmatriisit. Tulostuksien jälkeen käyttäjä ohjataan takaisin päävalikkoon.
+Sovellus pyytää käyttäjältä kaksi merkkijonoa. Kun käyttäjä on syöttänyt merkkijonot, laskee sovellus merkkijonojen välisen Levenshtein-etäisyyden ja Damerau-Levenshtein-etäisyyden. Sovellus tulostaa samassa yhteydessä lisäksi tulosmatriisit. Tulostuksien jälkeen käyttäjä ohjataan takaisin päävalikkoon.
 
 Sovellus suljetaan komennolla ```3```.  
 
@@ -52,5 +52,5 @@ Koodin staattisen analyysin voi ajaa projektin juurikansiosta komennolla:
 ```
 poetry run pylint src
 ```
-Pylintin säännöt on määritelty [ohjelmistotekniikka-lähteen](https://github.com/ohjelmistotekniikka-hy/ohjelmistotekniikka-hy.github.io/blob/master/materiaali/python/.pylintrc) mukaisesti lukuunottamatta metodille sallittujen parametrien maksimimäärää (7 -> 9, kts. [etsi_rekursiivisesti](/src/services/damerau_levenshtein.py)).
+Pylintin säännöt on määritelty [ohjelmistotekniikka-lähteen](https://github.com/ohjelmistotekniikka-hy/ohjelmistotekniikka-hy.github.io/blob/master/materiaali/python/.pylintrc) mukaisesti lukuun ottamatta metodille sallittujen parametrien maksimimäärää (7 -> 9, kts. [etsi_rekursiivisesti](/src/services/damerau_levenshtein.py)).
 
