@@ -56,14 +56,16 @@ class TestDamerauLevenshteinLaskeEtaisyydet(unittest.TestCase):
         self.assertEqual(matriisi[-1][-1], 2)
         matriisi = self.dl.laske_levensthein_etaisyys(
             "afntsatci", "fantastic")
-        # etäisyyteen 3 tarvittaisiin transpoosia
+        # etäisyyteen 3 tarvittaisiin transpoosi
         self.assertEqual(matriisi[-1][-1], 6)
         matriisi = self.dl.laske_levensthein_etaisyys(
             "engineer", "architecht")
         self.assertEqual(matriisi[-1][-1], 8)
 
+# Testataan korjaustoimintoa rajatulla testisanastolla
 
-class TestDamerauLevenshteinEtsiKorjauksetTrienKanssaTestiSanastolla(unittest.TestCase):
+
+class TestDamerauLevenshteinEtsiKorjaukset(unittest.TestCase):
 
     def setUp(self):
         self.dl = DamerauLevenshtein()
@@ -103,3 +105,106 @@ class TestDamerauLevenshteinEtsiKorjauksetTrienKanssaTestiSanastolla(unittest.Te
         tulos = self.dl.etsi_korjaukset(self.trie, "yse")
         # mutta metodin käyttämä damerau-levenstheinin etäisyys on 1
         self.assertIn(("yes", 1, 3), tulos)
+
+# Testataan korjaustoiminnon palauttamia etäisyyksiä sana kerrallaan
+
+
+class TestDamerauLevenshteinEtsiKorjauksetEtaisyydet(unittest.TestCase):
+
+    def setUp(self):
+        self.trie = TrieSolmu()
+        self.dl = DamerauLevenshtein()
+        self.sijoitus = 0
+
+    def test_etsi_korjaukset_palauttaa_oikean_damerau_levenshtein_etaisyyden_a_ja_an(self):
+        self.trie.lisaa_sana("a", self.sijoitus)
+        self.assertEqual(self.dl.etsi_korjaukset(self.trie, "an")[0][1], 1)
+
+    def test_etsi_korjaukset_palauttaa_oikean_damerau_levenshtein_etaisyyden_an_ja_a(self):
+        self.trie.lisaa_sana("an", self.sijoitus)
+        self.assertEqual(self.dl.etsi_korjaukset(self.trie, "a")[0][1], 1)
+
+    def test_etsi_korjaukset_palauttaa_oikean_damerau_levenshtein_etaisyyden_test_ja_est(self):
+        self.trie.lisaa_sana("test", self.sijoitus)
+        self.assertEqual(self.dl.etsi_korjaukset(self.trie, "est")[0][1], 1)
+
+    def test_etsi_korjaukset_palauttaa_oikean_damerau_levenshtein_etaisyyden_test_ja_ests(self):
+        self.trie.lisaa_sana("test", self.sijoitus)
+        self.assertEqual(self.dl.etsi_korjaukset(self.trie, "ests")[0][1], 2)
+
+    def test_etsi_korjaukset_palauttaa_oikean_damerau_levenshtein_etaisyyden_test_ja_esst(self):
+        self.trie.lisaa_sana("test", self.sijoitus)
+        self.assertEqual(self.dl.etsi_korjaukset(self.trie, "esst")[0][1], 2)
+
+    def test_etsi_korjaukset_palauttaa_oikean_damerau_levenshtein_etaisyyden_test_ja_tests(self):
+        self.trie.lisaa_sana("test", self.sijoitus)
+        self.assertEqual(self.dl.etsi_korjaukset(self.trie, "tests")[0][1], 1)
+
+    def test_etsi_korjaukset_palauttaa_oikean_damerau_levenshtein_etaisyyden_test_ja_tets(self):
+        self.trie.lisaa_sana("test", self.sijoitus)
+        self.assertEqual(self.dl.etsi_korjaukset(self.trie, "tets")[0][1], 1)
+
+    def test_etsi_korjaukset_palauttaa_oikean_damerau_levenshtein_etaisyyden_car_ja_cars(self):
+        self.trie.lisaa_sana("car", self.sijoitus)
+        self.assertEqual(self.dl.etsi_korjaukset(self.trie, "cars")[0][1], 1)
+
+    def test_etsi_korjaukset_palauttaa_oikean_damerau_levenshtein_etaisyyden_car_ja_acr(self):
+        self.trie.lisaa_sana("car", self.sijoitus)
+        self.assertEqual(self.dl.etsi_korjaukset(self.trie, "acr")[0][1], 1)
+
+    def test_etsi_korjaukset_palauttaa_oikean_damerau_levenshtein_etaisyyden_car_ja_cartoon(self):
+        self.trie.lisaa_sana("car", self.sijoitus)
+        self.assertEqual(self.dl.etsi_korjaukset(
+            self.trie, "cartoon")[0][1], 4)
+
+    def test_etsi_korjaukset_palauttaa_oikean_damerau_levenshtein_etaisyyden_hero_ja_zero(self):
+        self.trie.lisaa_sana("hero", self.sijoitus)
+        self.assertEqual(self.dl.etsi_korjaukset(self.trie, "zero")[0][1], 1)
+
+    def test_etsi_korjaukset_palauttaa_oikean_damerau_levenshtein_etaisyyden_hero_ja_hreo(self):
+        self.trie.lisaa_sana("hero", self.sijoitus)
+        self.assertEqual(self.dl.etsi_korjaukset(self.trie, "hreo")[0][1], 1)
+
+    def test_etsi_korjaukset_palauttaa_oikean_damerau_levenshtein_etaisyyden_hero_ja_heroes(self):
+        self.trie.lisaa_sana("hero", self.sijoitus)
+        self.assertEqual(self.dl.etsi_korjaukset(self.trie, "heroes")[0][1], 2)
+
+    def test_etsi_korjaukset_palauttaa_oikean_damerau_levenshtein_etaisyyden_algorithm_ja_alogrytm(self):
+        self.trie.lisaa_sana("algorithm", self.sijoitus)
+        self.assertEqual(self.dl.etsi_korjaukset(
+            self.trie, "alogrytm")[0][1], 3)
+
+    def test_etsi_korjaukset_palauttaa_oikean_damerau_levenshtein_etaisyyden_alogrytm_ja_algorithm(self):
+        self.trie.lisaa_sana("alogrytm", self.sijoitus)
+        self.assertEqual(self.dl.etsi_korjaukset(
+            self.trie, "algorithm")[0][1], 3)
+
+    def test_etsi_korjaukset_palauttaa_oikean_damerau_levenshtein_etaisyyden_fantastic_ja_afntsatci(self):
+        self.trie.lisaa_sana("fantastic", self.sijoitus)
+        self.assertEqual(self.dl.etsi_korjaukset(
+            self.trie, "afntsatci")[0][1], 3)
+
+    def test_etsi_korjaukset_palauttaa_oikean_damerau_levenshtein_etaisyyden_tyhjalla_syotteella(self):
+        self.trie.lisaa_sana("empty", self.sijoitus)
+        self.assertEqual(self.dl.etsi_korjaukset(
+            self.trie, "")[0][1], 5)
+
+    def test_etsi_korjaukset_palauttaa_oikean_damerau_levenshtein_etaisyyden_ylioppilastutkintolautakunta_ja_yliooopilastutkintolautakunta(self):
+        self.trie.lisaa_sana("ylioppilastutkintolautakunta", self.sijoitus)
+        self.assertEqual(self.dl.etsi_korjaukset(
+            self.trie, "yliooopilastutkintolautakunta")[0][1], 2)
+
+    def test_etsi_korjaukset_palauttaa_oikean_damerau_levenshtein_etaisyyden_ylioppilastutkintolautakunta_ja_yliopplilaastutkintoklautakunta(self):
+        self.trie.lisaa_sana("ylioppilastutkintolautakunta", self.sijoitus)
+        self.assertEqual(self.dl.etsi_korjaukset(
+            self.trie, "yliopplilaastutkintoklautakunta")[0][1], 3)
+
+    def test_etsi_korjaukset_palauttaa_oikean_damerau_levenshtein_etaisyyden_ylioppilastutkintolautakunta_ja_yloipplilaastutkintoklautakunta(self):
+        self.trie.lisaa_sana("ylioppilastutkintolautakunta", self.sijoitus)
+        self.assertEqual(self.dl.etsi_korjaukset(
+            self.trie, "yloipplilaastutkintoklautakunta")[0][1], 4)
+
+    def test_etsi_korjaukset_palauttaa_oikean_damerau_levenshtein_etaisyyden_ylioppilastutkintolautakunta_ja_yloipplilaastutkintoklautakuntaa(self):
+        self.trie.lisaa_sana("ylioppilastutkintolautakunta", self.sijoitus)
+        self.assertEqual(self.dl.etsi_korjaukset(
+            self.trie, "yloipplilaastutkintoklautakuntaa")[0][1], 5)
