@@ -59,7 +59,9 @@ Korjausehdotuksia karsitaan pitämällä kirjaa korjausehdotus-listan pienimmäs
 ## Saavutetut aika- ja tilavaativuudet 
 [Trie-tietorakenteen](/src/datastructures/trie.py) aika- ja tilavaativuus on yhtä merkkijonoa käsitellessä luokkaa **O(n)**, jossa n on merkkijonon pituus. Koko sanaston lisääminen Trie-tietorakenteeseen on kuitenkin luokkaa **O(mn)**, jossa m on sanastojen sanojen lukumäärä ja n sanojen keskimääräinen pituus.  
 
-Damerau-Levenshteinin etäisyyttä hyödyntävän [etsi_korjaukset](/src/services/damerau_levenshtein.py) + [etsi_rekursiivisesti](/src/services/damerau_levenshtein.py) -algoritmin aika- ja tilavaativuus on luokkaa **O(mn)**, jossa n on korjattavan sanan pituus ja m solmujen määrä Trie-tietorakenteessa. Tästä johtuen sovellus hidastelee erityisesti pitkien korjattavien sanojen kohdalla, ja toisaalta sovellusta on "helppo" nopeuttaa sanastoa (eli solmujen määrää) karsimalla. Sovelluksen nykyisessä versiossa Trie-tietorakenteeseen luodaan noin **237 000** solmua, jotka sisältävät noin **96 000** sanaa.
+Damerau-Levenshteinin etäisyyttä hyödyntävän [etsi_korjaukset O(m)](/src/services/damerau_levenshtein.py) * [etsi_rekursiivisesti O(n)](/src/services/damerau_levenshtein.py) -algoritmin aika- ja tilavaativuus on luokkaa **O(mn)**, jossa n on korjattavan sanan pituus ja m solmujen määrä Trie-tietorakenteessa. Tästä johtuen sovellus hidastelee erityisesti pitkien korjattavien sanojen kohdalla, ja toisaalta sovellusta on "helppo" nopeuttaa sanastoa (eli solmujen määrää) karsimalla. Sovelluksen nykyisessä versiossa Trie-tietorakenteeseen luodaan noin **237 000** solmua, jotka sisältävät noin **96 000** sanaa.   
+
+Korjaustoimintoon liittyvä korjausehdotusten vertailu suoritetaan [Sanastopalvelun](/src/services/vocabulary_service.py) puolella ajassa **O(n)**, eli myös koko [korjaustoiminnon](https://github.com/tietotuomas/Kirjoitusvirheiden-korjaaja/edit/main/dokumentit/toteutus.md#korjaustoiminto) aikavaativuus- ja tilavaativuus on **O(mn)**. 
 
 ## Parannuskohteet
 
