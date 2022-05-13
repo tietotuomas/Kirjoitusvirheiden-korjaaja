@@ -97,17 +97,17 @@ class Sanastopalvelu:
 
     def laske_editointietaisyydet(self, ensimmainen_mjono: str, toinen_mjono: str):
         """
-        Kutsuu DamerauLevenshtein-luokan laske_levensthein_etaisyys- ja 
-        laske_damerau_levensthein_etaisyys-metodia. Metodit palauttavat 
-        kaksiulotteiset taulukot. 
+        Kutsuu DamerauLevenshtein-luokan laske_levensthein_etaisyys- ja
+        laske_damerau_levensthein_etaisyys-metodia. Metodit palauttavat
+        kaksiulotteiset taulukot.
 
         Args:
             ensimmainen_mjono: Käyttäjän syöttämä ensimmäinen merkkijono.
             toinen_mjono: Käyttäjän syöttämä toinen merkkijono.
 
         Returns:
-            Tuplen, joka sisältää DamerauLevenshtein-luokan rakentamat 
-            matriisit eli kaksiuloitteiset taulukot. Matriisien viimeiset 
+            Tuplen, joka sisältää DamerauLevenshtein-luokan rakentamat
+            matriisit eli kaksiuloitteiset taulukot. Matriisien viimeiset
             solut kertovat editointietäisyydet.
         """
         damerau_levenshtein = self.dameraulevenshtein.laske_damerau_levensthein_etaisyys(

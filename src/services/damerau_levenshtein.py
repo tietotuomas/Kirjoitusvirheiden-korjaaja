@@ -1,7 +1,7 @@
 class DamerauLevenshtein:
     """
     Luokka tarjoaa toiminnallisuudet editointietäisyyksien laskemiseen
-    sekä virheellisen sanan korjausehdotuslistan muodostamiseen. Toiminnallisuudet 
+    sekä virheellisen sanan korjausehdotuslistan muodostamiseen. Toiminnallisuudet
     perustuvat Damerau-Levenshtein -etäisyyden hyödyntämiseen.
     """
 
@@ -9,7 +9,7 @@ class DamerauLevenshtein:
         """
         Luo kaksiuloitteisen taulukon eli matriisin, jonka koko on
         (n+1) * (m+1), missä n ja m ovat merkkijonojen pituudet.
-        Täyttää matriisin ensimmäisen vaakarivin ensimmäisen (oikean) sanan 
+        Täyttää matriisin ensimmäisen vaakarivin ensimmäisen (oikean) sanan
         pituusindekseillä+1 ja ensimmäisen pystyrivin toisen (tarkistettavan)
         sanan pituusindekseillä+1. Alustaa muiden solujen arvoksi nolla.
 
@@ -20,7 +20,7 @@ class DamerauLevenshtein:
         2 0 0 0
         3 0 0 0
 
-        Args: 
+        Args:
             sarakkeet: oikean merkkijonon pituus + 1
             rivit: tarkistettavan merkkijonon pituus +1
 
@@ -44,20 +44,20 @@ class DamerauLevenshtein:
 
     def laske_levensthein_etaisyys(self, oikea_sana: str, tarkistettava_sana: str):
         """
-        Täyttää metodin luo_matriisi alustaman matriisin rivi kerrallaan 
+        Täyttää metodin luo_matriisi alustaman matriisin rivi kerrallaan
         levehnstein-etäisyyteen perustuen. Editointietäisyys luetaan matriisin
         viimeisestä solusta.
 
-        Levensteinin etäisyyttä laskettaessa sallittuja operaatioita ovat 
+        Levensteinin etäisyyttä laskettaessa sallittuja operaatioita ovat
         yhden merkin lisääminen, poistaminen tai korvaaminen toisella merkillä.
 
-        Args: 
+        Args:
             oikea_sana: Käyttäjän syöttämä ensimmäinen merkkijono, johon vertailua tehdään.
-            tarkistettava_sana: Käyttäjän syöttämä toinen merkkijono, jota vertaillaan 
+            tarkistettava_sana: Käyttäjän syöttämä toinen merkkijono, jota vertaillaan
             ensimmäiseen merkkijonoon.
 
         Returns:
-            Kokonaan täytetyn kaksiulotteisen taulukon eli matriisin levehnstein-etäisyyteen 
+            Kokonaan täytetyn kaksiulotteisen taulukon eli matriisin levehnstein-etäisyyteen
             perustuen.
         """
 
@@ -77,21 +77,21 @@ class DamerauLevenshtein:
 
     def laske_damerau_levensthein_etaisyys(self, oikea_sana: str, tarkistettava_sana: str):
         """
-        Täyttää metodin luo_matriisi alustaman matriisin rivi kerrallaan 
+        Täyttää metodin luo_matriisi alustaman matriisin rivi kerrallaan
         damerau-levehnstein-etäisyyteen perustuen. Editointietäisyys luetaan matriisin
         viimeisestä solusta.
 
-        Damerau-levensteinin etäisyyttä laskettaessa sallittuja operaatioita ovat 
+        Damerau-levensteinin etäisyyttä laskettaessa sallittuja operaatioita ovat
         yhden merkin lisääminen, poistaminen, korvaaminen toisella merkillä tai kahden
         vierekkäisen merkin paikan vaihtaminen.
 
-        Args: 
+        Args:
             oikea_sana: Käyttäjän syöttämä ensimmäinen merkkijono, johon vertailua tehdään.
-            tarkistettava_sana: Käyttäjän syöttämä toinen merkkijono, jota vertaillaan 
+            tarkistettava_sana: Käyttäjän syöttämä toinen merkkijono, jota vertaillaan
             ensimmäiseen merkkijonoon.
 
         Returns:
-            Kokonaan täytetyn kaksiulotteisen taulukon eli matriisin levehnstein-etäisyyteen 
+            Kokonaan täytetyn kaksiulotteisen taulukon eli matriisin levehnstein-etäisyyteen
             perustuen.
         """
 
@@ -107,9 +107,9 @@ class DamerauLevenshtein:
                 else:
                     matriisi[rivi][sarake] = matriisi[rivi-1][sarake-1]
 
-                if rivi-1 > 0 and sarake-1 > 0 and tarkistettava_sana[rivi-1] == oikea_sana[sarake-2]\
-                        and tarkistettava_sana[rivi-2] == oikea_sana[sarake-1]\
-                    and oikea_sana[sarake-1] != tarkistettava_sana[rivi-1]:
+                if rivi-1 > 0 and sarake-1 > 0 and tarkistettava_sana[rivi-1] == \
+                        oikea_sana[sarake-2] and tarkistettava_sana[rivi-2] == oikea_sana[sarake-1]\
+                        and oikea_sana[sarake-1] != tarkistettava_sana[rivi-1]:
                     matriisi[rivi][sarake] = min(
                         matriisi[rivi][sarake], matriisi[rivi-2][sarake-2]+1)
 
@@ -117,18 +117,18 @@ class DamerauLevenshtein:
 
     def etsi_korjaukset(self, trie, sana):
         """
-        Etsii virheellisille sanalle korjausehdotuksia. Laskee virheelliselle 
+        Etsii virheellisille sanalle korjausehdotuksia. Laskee virheelliselle
         sanalle Damerau-Levenshtein -etäisyyksiä käymällä läpi Trie-puuhun
         ladatun sanaston kutsumalla metodia etsi_rekursiivisesti. Alustaa matriisin
-        ensimmäisen rivin, tyhjän tulostaulukon ja muuttujan pienin (5), jota suurempia 
+        ensimmäisen rivin, tyhjän tulostaulukon ja muuttujan pienin (5), jota suurempia
         editointietäisyyden omaavia sanoja ei lisätä tulostaulukkoon.
 
-        Args: 
+        Args:
             trie: TrieSolmu-luokkaan tallennettu sanasto.
             sana: Virheellinen sana, jolle etsitään korjausehdotuksia.
 
         Returns:
-            Palauttaa korjausehdotukset kolmialkioisia tupleja 
+            Palauttaa korjausehdotukset kolmialkioisia tupleja
             sisältävänä taulukkona:
             ensimmäinen alkio sisältää sanan eli itse korjausehdotuksen,
             toinen alkio kertoo Damerau-Levenshtein -etäisyyden virheelliseen sanaan verrattuna,
@@ -150,24 +150,27 @@ class DamerauLevenshtein:
                               sana, edellinen_rivi, toissa_rivi, tulos, pienin):
         """
         Laskee virheelliselle sanalle Damerau-Levenshtein -etäisyyksiä käymällä läpi Trie-puuhun
-        ladatun sanaston kirjain tai merkki kerrallaan. Käy haarat rekursiivisesti läpi 
+        ladatun sanaston kirjain tai merkki kerrallaan. Käy haarat rekursiivisesti läpi
         kutsumalla itseään.
 
-        Damerau-levensteinin etäisyyden mukaisesti tarkistettavat operaatiot ovat 
+        Damerau-levensteinin etäisyyden mukaisesti tarkistettavat operaatiot ovat
         yhden merkin lisääminen, poistaminen, korvaaminen toisella merkillä tai kahden
         vierekkäisen merkin paikan vaihtaminen.
 
-        Jos solmu sisältää sanan päättävän kirjaimen ja ko. sanan Damerau-Levenshtein -etäisyys on yhtä pieni
-        tai pienempi kuin tuloslistan pienin etäisyys (kuitenkin korkeintaan 5), lisätään sana tulostaulukkoon.
+        Jos solmu sisältää sanan päättävän kirjaimen ja ko. sanan Damerau-Levenshtein -etäisyys
+        on yhtä pieni tai pienempi kuin tuloslistan pienin etäisyys (kuitenkin korkeintaan 5),
+        lisätään sana tulostaulukkoon.
 
         Args:
             solmu: trie-puun solmu
             kirjain: vertailuvuorossa oleva kirjain
-            edellinen_kirjain: edellisenä vuorossa ollut kirjain, siis trie-puussa nykyisen kirjaimen vanhempi
+            edellinen_kirjain: edellisenä vuorossa ollut kirjain,
+            siis trie-puussa nykyisen kirjaimen vanhempi
             sana: virheellinen sana, johon sanaston sanoja verrataan
             edellinen_rivi: matriisin edellinen, "ylempi" rivi
             toissa_rivi: edellistä riviä edeltänyt rivi
-            tulos: tulostaulukko, johon potentiaaliset korjausehdotukset lisätään tuplena (sana, etaisyys, sijoitus)
+            tulos: tulostaulukko, johon potentiaaliset korjausehdotukset lisätään
+            tuplena (sana, etaisyys, sijoitus)
             pienin: kokonaisluku, joka pitää kirjaa tulostaulukon pienimmästä editointietäisyydestä
 
         """
@@ -198,7 +201,7 @@ class DamerauLevenshtein:
 
         edellinen_kirjain = kirjain
 
-        for kirjain in solmu.lapset:
-            self._etsi_rekursiivisesti(solmu.lapset[kirjain], kirjain,
+        for lapsi in solmu.lapset:
+            self._etsi_rekursiivisesti(solmu.lapset[lapsi], lapsi,
                                        edellinen_kirjain, sana, nykyinen_rivi,
                                        edellinen_rivi, tulos, pienin)
